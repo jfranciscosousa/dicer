@@ -21,10 +21,9 @@ const ROLL_COMMAND = buildCommand({
   ],
   type: ApplicationCommandTypes.ChatInput,
   buildArguments: (interaction: Interaction) => {
-    const schema = z.object({ user: z.bigint(), expression: z.string() });
+    const schema = z.object({ expression: z.string() });
 
     return schema.parse({
-      user: interaction.user.id,
       expression: getOptionValue(interaction, "expression"),
     });
   },
@@ -37,10 +36,7 @@ const ROLL_COMMAND = buildCommand({
     return {
       type: InteractionResponseTypes.ChannelMessageWithSource,
       data: {
-        content: `<@${user.id}> rolled ${roller.output.replace(
-          ":",
-          "\n\n"
-        )}`,
+        content: `<@${user.id}> rolled ${roller.output.replace(":", "\n\n")}`,
       },
     };
   },
