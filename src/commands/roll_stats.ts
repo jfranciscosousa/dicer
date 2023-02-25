@@ -42,7 +42,7 @@ const ROLL_STATS_COMMAND = buildCommand({
     return {
       type: InteractionResponseTypes.ChannelMessageWithSource,
       data: {
-        content: `<@${user}> your stats are: \n\n${roller.log
+        content: `<@${user.id}> your stats are: \n\n${roller.log
           .map((log) => log.total)
           .join(" ")}`,
       },

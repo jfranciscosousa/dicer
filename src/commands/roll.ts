@@ -37,7 +37,7 @@ const ROLL_COMMAND = buildCommand({
     return {
       type: InteractionResponseTypes.ChannelMessageWithSource,
       data: {
-        content: `<@${user}> rolled ${roller.output.replace(
+        content: `<@${user.id}> rolled ${roller.output.replace(
           ":",
           "\n\n"
         )}`,
