@@ -1,0 +1,24 @@
+name: Lint and test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: marocchino/tool-versions-action@v1
+        id: versions
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ steps.versions.outputs.deno }}
+
+      - name: Lint
+        run: deno lint
