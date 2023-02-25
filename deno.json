@@ -8,7 +8,7 @@
     "dice-roller": "npm:@dice-roller/rpg-dice-roller@^5.2.1",
     "sift": "https://deno.land/x/sift@0.6.0/mod.ts",
     "zod": "https://deno.land/x/zod@v3.20.5/mod.ts",
-    "zod-error": "npm:zod-error@^1.3.0"
+    "zod-error": "npm:zod-error@^1.5.0"
   },
   "tasks": {
     "dev": "deno run --allow-net=discord.com,gateway.discord.gg --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/dev.ts",
