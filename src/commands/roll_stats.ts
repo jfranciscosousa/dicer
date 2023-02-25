@@ -1,4 +1,4 @@
-import { buildCommand } from "@/commands/utils.ts";
+import { buildCommand, getUser } from "@/commands/utils.ts";
 import { DiceRoller } from "dice-roller";
 import { ApplicationCommandTypes, InteractionResponseTypes } from "discord";
 
@@ -29,21 +29,22 @@ const ROLL_STATS_COMMAND = buildCommand({
   type: ApplicationCommandTypes.ChatInput,
   handler: (interaction) => {
     const roller = rollStats();
+    const user = getUser(interaction);
 
     if (!roller)
       return {
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
-          content: `<@${interaction.user.id}> sorry but the stat rolling exploded. Please try again!`,
+          content: `<@${user}> sorry but the stat rolling exploded. Please try again!`,
         },
       };
 
     return {
       type: InteractionResponseTypes.ChannelMessageWithSource,
       data: {
-        content: `<@${interaction.user.id}> your stats are: \n\n${roller.log.map(
-          (log) => log.total
-        ).join(" ")}`,
+        content: `<@${user}> your stats are: \n\n${roller.log
+          .map((log) => log.total)
+          .join(" ")}`,
       },
     };
   },

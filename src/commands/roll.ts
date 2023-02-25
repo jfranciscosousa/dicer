@@ -6,7 +6,7 @@ import {
 } from "discord";
 import { z } from "zod";
 import { DiceRoller } from "dice-roller";
-import { buildCommand, getOptionValue } from "@/commands/utils.ts";
+import { buildCommand, getOptionValue, getUser } from "@/commands/utils.ts";
 
 const ROLL_COMMAND = buildCommand({
   name: "roll",
@@ -30,13 +30,14 @@ const ROLL_COMMAND = buildCommand({
   },
   handler: ({ expression }, interaction) => {
     const roller = new DiceRoller();
+    const user = getUser(interaction);
 
     roller.roll(expression);
 
     return {
       type: InteractionResponseTypes.ChannelMessageWithSource,
       data: {
-        content: `<@${interaction.user.id}> rolled ${roller.output.replace(
+        content: `<@${user}> rolled ${roller.output.replace(
           ":",
           "\n\n"
         )}`,

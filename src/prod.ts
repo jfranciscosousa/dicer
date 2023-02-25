@@ -83,7 +83,5 @@ async function bot(request: Request) {
     });
   }
 
-  console.log(interaction)
-
   return json(await command.handleInteraction(interaction));
 }

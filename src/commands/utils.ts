@@ -83,3 +83,10 @@ export function getOptionValue(interaction: Interaction, optionName: string) {
   return interaction.data?.options?.find((option) => option.name === optionName)
     ?.value;
 }
+
+export function getUser(interaction: Interaction): {
+  id: bigint;
+  username: string;
+} {
+  return interaction.user || interaction.member?.user;
+}
