@@ -1,6 +1,8 @@
 import {
-  deleteApplicationCommand,
-  getApplicationCommands,
+  deleteGlobalApplicationCommand,
+  getGlobalApplicationCommands,
+  deleteGuildApplicationCommand,
+  getGuildApplicationCommands,
   startBot,
 } from "discord";
 import bot from "@/bot.ts";
@@ -9,11 +11,11 @@ await startBot(bot);
 
 bot.events.ready = async (_bot, { guilds }) => {
   // Get global commands
-  const existingCommands = (await getApplicationCommands(bot)).array();
+  const existingCommands = (await getGlobalApplicationCommands(bot)).array();
 
   // Delete global commands
   const deletedGlobalCommands = await Promise.all(
-    existingCommands.map((c) => deleteApplicationCommand(bot, c.id))
+    existingCommands.map((c) => deleteGlobalApplicationCommand(bot, c.id))
   );
 
   // Delete guild commands
@@ -21,11 +23,13 @@ bot.events.ready = async (_bot, { guilds }) => {
     await Promise.all(
       guilds.map(async (guildId) => {
         const guildCommands = (
-          await getApplicationCommands(bot, guildId)
+          await getGuildApplicationCommands(bot, guildId)
         ).array();
 
         return Promise.all(
-          guildCommands.map((c) => deleteApplicationCommand(bot, c.id, guildId))
+          guildCommands.map((c) =>
+            deleteGuildApplicationCommand(bot, c.id, guildId)
+          )
         );
       })
     )

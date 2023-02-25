@@ -1,0 +1,29 @@
+name: Run task
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: 'Task'
+        required: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: marocchino/tool-versions-action@v1
+        id: versions
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ steps.versions.outputs.deno }}
+
+      - name: Run ${{ github.event.inputs.task }}
+        run: "deno task run tasks/${{ github.event.inputs.task }}.ts"
+        env:
+          DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
+          DISCORD_PUBLIC_KEY: ${{ secrets.DISCORD_PUBLIC_KEY }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}

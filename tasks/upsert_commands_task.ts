@@ -1,16 +1,29 @@
 import {
-  getApplicationCommands,
+  ApplicationCommand,
+  getGuildApplicationCommands,
+  upsertGuildApplicationCommands,
   startBot,
-  upsertApplicationCommands,
 } from "discord";
+import { flattenDeep } from "lodash";
 import bot from "@/bot.ts";
 import { COMMANDS } from "@/commands.ts";
 
 await startBot(bot);
 
+async function fetchAllCommands(): Promise<ApplicationCommand[]> {
+  const guildCommands = await Promise.all(
+    Array.from(bot.activeGuildIds).map(async (guildId) =>
+      (await getGuildApplicationCommands(bot, guildId)).array()
+    )
+  );
+  const commands = flattenDeep(guildCommands);
+
+  return commands;
+}
+
 bot.events.ready = async (_bot, { guilds }) => {
   // Get existing commands
-  const existingCommands = (await getApplicationCommands(bot)).array();
+  const existingCommands = await fetchAllCommands();
 
   // Add the existing ids to existing commands so we update them instead of creating
   const commandsWithId = Object.values(COMMANDS).map((command) => {
@@ -26,7 +39,7 @@ bot.events.ready = async (_bot, { guilds }) => {
   // For each guild, upsert existing commands
   await Promise.all(
     Array.from(guilds).map((guildId) =>
-      upsertApplicationCommands(bot, commandsWithId, guildId)
+      upsertGuildApplicationCommands(bot, guildId, commandsWithId)
     )
   );
 
