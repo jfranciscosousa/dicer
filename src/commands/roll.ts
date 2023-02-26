@@ -21,24 +21,39 @@ const ROLL_COMMAND = buildCommand({
   ],
   type: ApplicationCommandTypes.ChatInput,
   buildArguments: (interaction: Interaction) => {
-    const schema = z.object({ expression: z.string() });
+    const schema = z.object({
+      expression: z.string(),
+      userId: z.string().or(z.bigint()).transform(BigInt),
+    });
 
     return schema.parse({
       expression: getOptionValue(interaction, "expression"),
+      userId: getUser(interaction).id,
     });
   },
-  handler: ({ expression }, interaction) => {
-    const roller = new DiceRoller();
-    const user = getUser(interaction);
+  handler: ({ expression, userId }) => {
+    try {
+      const roller = new DiceRoller();
 
-    roller.roll(expression);
+      roller.roll(expression);
 
-    return {
-      type: InteractionResponseTypes.ChannelMessageWithSource,
-      data: {
-        content: `<@${user.id}> rolled ${roller.output.replace(":", "\n\n")}`,
-      },
-    };
+      return {
+        type: InteractionResponseTypes.ChannelMessageWithSource,
+        data: {
+          content: `<@${userId}> rolled ${roller.output.replace(":", "\n\n")}`,
+        },
+      };
+    } catch (error) {
+      if (error instanceof RangeError)
+        return {
+          type: InteractionResponseTypes.ChannelMessageWithSource,
+          data: {
+            content: `Hey <@${userId}> chill out. That's way too many dice!`,
+          },
+        };
+
+      throw error;
+    }
   },
 });
 

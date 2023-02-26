@@ -1,6 +1,11 @@
 import { buildCommand, getUser } from "@/commands/utils.ts";
 import { DiceRoller } from "dice-roller";
-import { ApplicationCommandTypes, InteractionResponseTypes } from "discord";
+import {
+  ApplicationCommandTypes,
+  InteractionResponseTypes,
+  Interaction,
+} from "discord";
+import { z } from "zod";
 
 function rollStats(): DiceRoller | void {
   const roller = new DiceRoller();
@@ -27,22 +32,24 @@ const ROLL_STATS_COMMAND = buildCommand({
   description:
     "Rolls stat for your character. 4d6, drops the lowest and enforces at least 1 stat with 15.",
   type: ApplicationCommandTypes.ChatInput,
-  handler: (interaction) => {
+  buildArguments: (interaction: Interaction) => ({
+    userId: getUser(interaction).id,
+  }),
+  handler: ({ userId }) => {
     const roller = rollStats();
-    const user = getUser(interaction);
 
     if (!roller)
       return {
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
-          content: `<@${user}> sorry but the stat rolling exploded. Please try again!`,
+          content: `<@${userId}> sorry but the stat rolling exploded. Please try again!`,
         },
       };
 
     return {
       type: InteractionResponseTypes.ChannelMessageWithSource,
       data: {
-        content: `<@${user.id}> your stats are: \n\n${roller.log
+        content: `<@${userId}> your stats are: \n\n${roller.log
           .map((log) => log.total)
           .join(" ")}`,
       },

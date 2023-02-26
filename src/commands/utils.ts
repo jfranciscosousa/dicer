@@ -16,18 +16,13 @@ export type Command<T> = {
 type CommandWithArguments<T> = {
   buildArguments: (interaction: Interaction) => T;
 
-  handler: (
-    args: T,
-    interaction: Interaction
-  ) => Promise<InteractionResponse> | InteractionResponse;
+  handler: (args: T) => Promise<InteractionResponse> | InteractionResponse;
 } & BaseCommand;
 
 type CommandWithoutArguments = {
   buildArguments?: undefined;
 
-  handler: (
-    interaction: Interaction
-  ) => Promise<InteractionResponse> | InteractionResponse;
+  handler: () => Promise<InteractionResponse> | InteractionResponse;
 } & BaseCommand;
 
 type BaseCommand = {
@@ -47,9 +42,9 @@ export function buildCommand<T>(commandProps: BuildCommandArgs<T>): Command<T> {
   if (!commandProps.buildArguments) {
     return {
       ...commandProps,
-      handleInteraction: (i) => {
+      handleInteraction: () => {
         try {
-          return commandProps.handler(i);
+          return commandProps.handler();
         } catch (error) {
           console.error(error);
 
@@ -66,7 +61,7 @@ export function buildCommand<T>(commandProps: BuildCommandArgs<T>): Command<T> {
     ...commandProps,
     handleInteraction: (i) => {
       try {
-        return commandProps.handler(commandProps.buildArguments(i), i);
+        return commandProps.handler(commandProps.buildArguments(i));
       } catch (error) {
         console.error(error);
 
