@@ -5,7 +5,7 @@
     "camelize": "https://deno.land/x/camelize@2.0.0/mod.ts",
     "discord": "https://deno.land/x/discordeno@18.0.1/mod.ts",
     "dotenv": "https://deno.land/x/dotenv@v3.2.0/mod.ts",
-    "dice-roller": "https://esm.sh/@dice-roller/rpg-dice-roller@v5.2.1",
+    "dice-roller": "https://esm.sh/@dice-roller/rpg-dice-roller@v5.2.1?no-check",
     "lodash": "https://esm.sh/lodash-es@4.17.15?no-check",
     "sift": "https://deno.land/x/sift@0.6.0/mod.ts",
     "zod": "https://deno.land/x/zod@v3.20.5/mod.ts",

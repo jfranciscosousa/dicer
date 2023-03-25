@@ -5,7 +5,6 @@ import {
   InteractionResponseTypes,
   Interaction,
 } from "discord";
-import { z } from "zod";
 
 function rollStats(): DiceRoller | void {
   const roller = new DiceRoller();
