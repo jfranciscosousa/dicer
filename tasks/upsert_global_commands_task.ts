@@ -15,7 +15,7 @@ bot.events.ready = async (_bot) => {
   // Add the existing ids to existing commands so we update them instead of creating
   const commandsWithId = Object.values(COMMANDS).map((command) => {
     const existingCommandId = existingCommands.find(
-      (c) => c.name === command.name
+      (c) => c.name === command.name,
     )?.id;
 
     if (!existingCommandId) return command;
@@ -26,7 +26,7 @@ bot.events.ready = async (_bot) => {
   await upsertGlobalApplicationCommands(bot, commandsWithId);
 
   console.log(
-    `New commands: ${commandsWithId.length - existingCommands.length}`
+    `New commands: ${commandsWithId.length - existingCommands.length}`,
   );
   console.log(`Updated commands: ${existingCommands.length}`);
 

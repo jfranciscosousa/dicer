@@ -45,13 +45,14 @@ const ROLL_COMMAND = buildCommand({
         },
       };
     } catch (error) {
-      if (error instanceof RangeError)
+      if (error instanceof RangeError) {
         return {
           type: InteractionResponseTypes.ChannelMessageWithSource,
           data: {
             content: `Hey <@${userId}> chill out. That's way too many dice!`,
           },
         };
+      }
 
       throw error;
     }

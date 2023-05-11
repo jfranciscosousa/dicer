@@ -45,7 +45,7 @@ async function bot(request: Request) {
       { error: "Invalid request" },
       {
         status: 401,
-      }
+      },
     );
   }
 

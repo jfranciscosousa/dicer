@@ -6,18 +6,20 @@ import { COMMANDS } from "@/commands.ts";
 await startBot(bot);
 
 console.log(
-  `https://discord.com/api/oauth2/authorize?client_id=${config.DISCORD_APPLICATION_ID}&scope=bot%20applications.commands`
+  `https://discord.com/api/oauth2/authorize?client_id=${config.DISCORD_APPLICATION_ID}&scope=bot%20applications.commands`,
 );
 
 bot.events.interactionCreate = async (_bot, interaction) => {
   const commandName = interaction.data?.name;
 
   console.log(
-    `DEBUG: Incoming command: ${commandName}\nOptions: ${JSON.stringify(
-      interaction.data?.options,
-      undefined,
-      2
-    )}`
+    `DEBUG: Incoming command: ${commandName}\nOptions: ${
+      JSON.stringify(
+        interaction.data?.options,
+        undefined,
+        2,
+      )
+    }`,
   );
 
   if (!commandName) {
@@ -38,6 +40,6 @@ bot.events.interactionCreate = async (_bot, interaction) => {
     bot,
     interaction.id,
     interaction.token,
-    response
+    response,
   );
 };

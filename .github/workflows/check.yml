@@ -1,4 +1,4 @@
-name: Lint and test
+name: Lints and checks
 
 on:
   push:
@@ -22,3 +22,6 @@ jobs:
 
       - name: Lint
         run: deno lint
+
+      - name: Check
+        run: deno check **/*.ts

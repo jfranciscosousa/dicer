@@ -9,7 +9,7 @@ import {
 export type Command<T> = {
   // The handler called by our `dev.ts` and `prod.ts` modules
   handleInteraction: (
-    interaction: Interaction
+    interaction: Interaction,
   ) => Promise<InteractionResponse> | InteractionResponse;
 } & (CommandWithArguments<T> | CommandWithoutArguments);
 

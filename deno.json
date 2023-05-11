@@ -1,14 +1,13 @@
 {
   "imports": {
     "@/": "./src/",
-    "asserts": "https://deno.land/std@0.165.0/testing/asserts.ts",
+    "asserts": "https://deno.land/std@0.186.0/testing/asserts.ts",
     "camelize": "https://deno.land/x/camelize@2.0.0/mod.ts",
     "discord": "https://deno.land/x/discordeno@18.0.1/mod.ts",
-    "dotenv": "https://deno.land/x/dotenv@v3.2.0/mod.ts",
+    "dotenv": "https://deno.land/x/dotenv@v3.2.2/mod.ts",
     "dice-roller": "https://esm.sh/v113/@dice-roller/rpg-dice-roller@v5.2.1",
-    "lodash": "https://esm.sh/v113/lodash-es@4.17.15",
     "sift": "https://deno.land/x/sift@0.6.0/mod.ts",
-    "zod": "https://deno.land/x/zod@v3.20.5/mod.ts",
+    "zod": "https://deno.land/x/zod@v3.21.4/mod.ts",
     "zod-error": "https://esm.sh/v113/zod-error@v1.5.0"
   },
   "tasks": {

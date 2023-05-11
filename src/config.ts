@@ -27,13 +27,13 @@ const parsedConfig = configSchema.safeParse(env);
 if (!parsedConfig.success) {
   console.error(
     "\x1b[31m%s\x1b[0m",
-    "Environment variables error, please review them!"
+    "Environment variables error, please review them!",
   );
   console.error(
     "\x1b[31m%s\x1b[0m",
     generateErrorMessage(parsedConfig.error.issues, {
       delimiter: { error: "\n" },
-    })
+    }),
   );
   Deno.exit(-1);
 }
