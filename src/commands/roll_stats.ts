@@ -28,6 +28,7 @@ function rollStats(): DiceRoller | void {
 
 const ROLL_STATS_COMMAND = buildCommand({
   name: "roll_stats",
+  dmPermission: true,
   description:
     "Rolls stat for your character. 4d6, drops the lowest and enforces at least 1 stat with 15.",
   type: ApplicationCommandTypes.ChatInput,

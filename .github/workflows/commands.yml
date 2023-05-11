@@ -21,7 +21,7 @@ jobs:
           deno-version: ${{ steps.versions.outputs.deno }}
 
       - name: Upsert commands
-        run: deno task run tasks/upsert_commands_task.ts
+        run: deno task run tasks/upsert_global_commands_task.ts
         env:
           DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
           DISCORD_PUBLIC_KEY: ${{ secrets.DISCORD_PUBLIC_KEY }}
