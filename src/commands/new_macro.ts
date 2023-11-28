@@ -54,7 +54,7 @@ const NEW_MACRO_COMMAND = buildCommand({
       return {
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
-          content: `<@${userId}> rolled ${roller.output.replace(":", "\n\n")}`,
+          content: `<@${userId}> you just created your new macro! Enjoy. Just write down \`/roll_macro ${macroName}\` now!`,
         },
       };
     } catch (error) {
