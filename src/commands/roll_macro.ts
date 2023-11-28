@@ -65,7 +65,7 @@ const ROLL_MACRO_COMMAND = buildCommand({
       return {
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
-          content: `<@${userId}> rolled ${roller.output.replace(":", "\n\n")}`,
+          content: `<@${userId}> rolled (${macroName}) ${roller.output.replace(":", "\n\n")}`,
         },
       };
     } catch (error) {
