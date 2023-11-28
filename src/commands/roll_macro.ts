@@ -38,11 +38,8 @@ const ROLL_MACRO_COMMAND = buildCommand({
       const roller = new DiceRoller();
 
       const kv = await Deno.openKv();
-      const expression = (await kv.get([
-        "macro",
-        userId,
-        macroName,
-      ])) as unknown as string | undefined;
+      const expression = (await kv.get<string>(["macro", userId, macroName]))
+        .value;
       kv.close();
 
       if (!expression) {
