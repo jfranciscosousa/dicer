@@ -12,7 +12,7 @@ import { DiceRoller } from "dice-roller";
 const NEW_MACRO_COMMAND = buildCommand({
   name: "new_macro",
   dmPermission: true,
-  description: "Create a new macro! A dice expression you can reuse quickly.",
+  description: "Create a new macro. A dice expression you can reuse quickly.",
   type: ApplicationCommandTypes.ChatInput,
   options: [
     {

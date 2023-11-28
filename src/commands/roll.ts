@@ -11,7 +11,7 @@ import { buildCommand, getOptionValue, getUser } from "@/commands/utils.ts";
 const ROLL_COMMAND = buildCommand({
   name: "roll",
   dmPermission: true,
-  description: "Roll dice!",
+  description: "Roll dice.",
   options: [
     {
       name: "expression",

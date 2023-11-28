@@ -1,62 +1,52 @@
 /// <reference lib="deno.unstable" />
-import { buildCommand, getOptionValue, getUser } from "@/commands/utils.ts";
+import { buildCommand, getUser } from "@/commands/utils.ts";
 import {
-  ApplicationCommandOptionTypes,
   ApplicationCommandTypes,
   Interaction,
   InteractionResponseTypes,
 } from "discord";
 import { z } from "zod";
-import { DiceRoller } from "dice-roller";
 
-const ROLL_MACRO_COMMAND = buildCommand({
-  name: "roll_macro",
+const LIST_MACROS_COMMAND = buildCommand({
+  name: "list_macros",
   dmPermission: true,
-  description: "Roll an existing macro.",
+  description: "List all of your macros.",
   type: ApplicationCommandTypes.ChatInput,
-  options: [
-    {
-      name: "macro_name",
-      description: "The macro you want to roll!",
-      type: ApplicationCommandOptionTypes.String,
-      required: true,
-    },
-  ],
   buildArguments: (interaction: Interaction) => {
     const schema = z.object({
-      macroName: z.string(),
       userId: z.string().or(z.bigint()).transform(BigInt),
     });
 
     return schema.parse({
-      macroName: getOptionValue(interaction, "macro_name"),
       userId: getUser(interaction).id,
     });
   },
-  handler: async ({ macroName, userId }) => {
+  handler: async ({ userId }) => {
     try {
-      const roller = new DiceRoller();
-
       const kv = await Deno.openKv();
-      const expression = (await kv.get<string>(["macro", userId, macroName]))
-        .value;
+      const macros: { key: string; value: string }[] = [];
+      const iterator = kv.list<string>({ prefix: ["macro", userId] });
+      for await (const macro of iterator) {
+        macros.push({ key: String(macro.key[2]), value: macro.value });
+      }
       kv.close();
 
-      if (!expression) {
+      if (!macros.length) {
         return {
           type: InteractionResponseTypes.ChannelMessageWithSource,
           data: {
-            content: `I couldn't find a macro with that name <@${userId}>! Please create one first!`,
+            content: `You don't have macros yet <@${userId}>. Please create one first.`,
           },
         };
       }
 
-      roller.roll(expression);
-
       return {
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
-          content: `<@${userId}> rolled ${roller.output.replace(":", "\n\n")}`,
+          content: `
+          <@${userId}> these are your macros:
+          ${macros.map((macro) => `${macro.key}: ${macro.value}`).join("\n")}
+          `.trim(),
         },
       };
     } catch (error) {
@@ -74,4 +64,4 @@ const ROLL_MACRO_COMMAND = buildCommand({
   },
 });
 
-export default ROLL_MACRO_COMMAND;
+export default LIST_MACROS_COMMAND;
