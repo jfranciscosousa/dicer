@@ -23,7 +23,7 @@ const ROLL_MACRO_COMMAND = buildCommand({
     },
     {
       name: "extra_expression",
-      description: "Any extra dice you want to add. eg: 1d20 + 8",
+      description: "Any extra dice you want to add. eg: +8",
       type: ApplicationCommandOptionTypes.String,
       required: false,
     },
@@ -59,7 +59,7 @@ const ROLL_MACRO_COMMAND = buildCommand({
         };
       }
 
-      if (extraExpression) roller.roll(`${macro} + ${extraExpression}`);
+      if (extraExpression) roller.roll(`${macro} ${extraExpression}`);
       else roller.roll(macro);
 
       return {
