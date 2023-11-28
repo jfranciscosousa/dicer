@@ -44,9 +44,9 @@ const LIST_MACROS_COMMAND = buildCommand({
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
           content: `
-          <@${userId}> these are your macros:
-          ${macros.map((macro) => `${macro.key}: ${macro.value}`).join("\n")}
-          `.trim(),
+<@${userId}> these are your macros:\n
+${macros.map((macro) => `- ${macro.key}: ${macro.value}`).join("\n")}
+`.trim(),
         },
       };
     } catch (error) {
