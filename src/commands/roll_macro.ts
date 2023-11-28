@@ -21,28 +21,36 @@ const ROLL_MACRO_COMMAND = buildCommand({
       type: ApplicationCommandOptionTypes.String,
       required: true,
     },
+    {
+      name: "extra_expression",
+      description: "Any extra dice you want to add. eg: 1d20 + 8",
+      type: ApplicationCommandOptionTypes.String,
+      required: false,
+    },
   ],
   buildArguments: (interaction: Interaction) => {
     const schema = z.object({
       macroName: z.string(),
+      extraExpression: z.string().optional(),
       userId: z.string().or(z.bigint()).transform(BigInt),
     });
 
     return schema.parse({
       macroName: getOptionValue(interaction, "macro_name"),
+      extraExpression: getOptionValue(interaction, "extra_expression"),
       userId: getUser(interaction).id,
     });
   },
-  handler: async ({ macroName, userId }) => {
+  handler: async ({ macroName, extraExpression, userId }) => {
     try {
       const roller = new DiceRoller();
 
       const kv = await Deno.openKv();
-      const expression = (await kv.get<string>(["macro", userId, macroName]))
+      const macro = (await kv.get<string>(["macro", userId, macroName]))
         .value;
       kv.close();
 
-      if (!expression) {
+      if (!macro) {
         return {
           type: InteractionResponseTypes.ChannelMessageWithSource,
           data: {
@@ -51,7 +59,8 @@ const ROLL_MACRO_COMMAND = buildCommand({
         };
       }
 
-      roller.roll(expression);
+      if (extraExpression) roller.roll(`${macro} + ${extraExpression}`);
+      else roller.roll(macro);
 
       return {
         type: InteractionResponseTypes.ChannelMessageWithSource,
