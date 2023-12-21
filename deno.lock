@@ -6,10 +6,10 @@
       "npm:zod-error@1.5.0": "npm:zod-error@1.5.0"
     },
     "npm": {
-      "@babel/runtime@7.23.5": {
-        "integrity": "sha512-NdUTHcPe4C99WxPub+K9l9tK5/lV4UXIoaHSYgzco9BCyjKAAwzdBI+wWtYqHt7LJdbo74ZjRPJgzVweq1sz0w==",
+      "@babel/runtime@7.23.6": {
+        "integrity": "sha512-zHd0eUrf5GZoOWVCXp6koAKQTfZV07eit6bGPmJgnZdnSAvvZee6zniW2XMF7Cmc4ISOOnPy3QaSiIJGJkVEDQ==",
         "dependencies": {
-          "regenerator-runtime": "regenerator-runtime@0.14.0"
+          "regenerator-runtime": "regenerator-runtime@0.14.1"
         }
       },
       "@dice-roller/rpg-dice-roller@5.2.2": {
@@ -42,7 +42,7 @@
       "mathjs@11.12.0": {
         "integrity": "sha512-UGhVw8rS1AyedyI55DGz9q1qZ0p98kyKPyc9vherBkoueLntPfKtPBh14x+V4cdUWK0NZV2TBwqRFlvadscSuw==",
         "dependencies": {
-          "@babel/runtime": "@babel/runtime@7.23.5",
+          "@babel/runtime": "@babel/runtime@7.23.6",
           "complex.js": "complex.js@2.1.1",
           "decimal.js": "decimal.js@10.4.3",
           "escape-latex": "escape-latex@1.2.0",
@@ -57,8 +57,8 @@
         "integrity": "sha512-CRUyWmnzmZBA7RZSVGq0xMqmgCyPPxbiKNLFA5ud7KenojVX2s7Gv+V7eB52beKTPGxWRnVZ7D/tCIgYJJ8vNQ==",
         "dependencies": {}
       },
-      "regenerator-runtime@0.14.0": {
-        "integrity": "sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==",
+      "regenerator-runtime@0.14.1": {
+        "integrity": "sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==",
         "dependencies": {}
       },
       "seedrandom@3.0.5": {
