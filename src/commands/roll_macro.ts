@@ -54,7 +54,8 @@ const ROLL_MACRO_COMMAND = buildCommand({
         return {
           type: InteractionResponseTypes.ChannelMessageWithSource,
           data: {
-            content: `I couldn't find a macro with that name <@${userId}>! Please create one first!`,
+            content:
+              `I couldn't find a macro with that name <@${userId}>! Please create one first!`,
           },
         };
       }
@@ -65,7 +66,9 @@ const ROLL_MACRO_COMMAND = buildCommand({
       return {
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
-          content: `<@${userId}> rolled (${macroName}) ${roller.output.replace(":", "\n\n")}`,
+          content: `<@${userId}> rolled (${macroName}) ${
+            roller.output.replace(":", "\n\n")
+          }`,
         },
       };
     } catch (error) {

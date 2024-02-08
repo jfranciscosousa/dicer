@@ -35,7 +35,8 @@ if (!parsedConfig.success) {
       delimiter: { error: "\n" },
     }),
   );
-  Deno.exit(-1);
+
+  throw new Error("bad env variables");
 }
 
 const config = parsedConfig.data;
