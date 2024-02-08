@@ -92,6 +92,13 @@ function HomePage() {
             integration!
           </p>
           <p>
+            You can also check the dice expression documentation{" "}
+            <a href="https://dice-roller.github.io/documentation/guide/notation/dice.html">
+              here
+            </a>
+            .
+          </p>
+          <p>
             <a href="https://github.com/jfranciscosousa/dicer">
               Check me out on Github
             </a>
