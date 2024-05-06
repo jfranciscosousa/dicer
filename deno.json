@@ -11,8 +11,8 @@
     "zod-error": "npm:zod-error@1.5.0"
   },
   "tasks": {
-    "dev": "deno run --allow-net=discord.com,gateway.discord.gg --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/dev.ts",
-    "prod": "deno run --allow-net=discord.com,gateway.discord.gg,0.0.0.0:8000 --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/prod.ts",
+    "dev": "deno run --unstable --allow-net=discord.com,gateway.discord.gg --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/dev.ts",
+    "prod": "deno run --unstable --allow-net=discord.com,gateway.discord.gg,0.0.0.0:8000 --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/prod.ts",
     "run": "deno run --allow-read=.env,.env.defaults,src/commands --allow-net=discord.com,gateway.discord.gg --allow-env",
     "regen-lock": "deno cache --reload --lock-write src/dev.ts src/prod.ts",
     "check-all": "deno fmt && deno lint && deno check src/**/*.ts tasks/**/*.ts test/**/*.ts"

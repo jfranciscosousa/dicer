@@ -1,5 +1,6 @@
 /// <reference lib="deno.unstable" />
 import { buildCommand, getUser } from "@/commands/utils.ts";
+import { openKv } from "@/kv.ts";
 import {
   ApplicationCommandTypes,
   Interaction,
@@ -23,7 +24,7 @@ const LIST_MACROS_COMMAND = buildCommand({
   },
   handler: async ({ userId }) => {
     try {
-      const kv = await Deno.openKv();
+      const kv = await openKv();
       const macros: { key: string; value: string }[] = [];
       const iterator = kv.list<string>({ prefix: ["macro", userId] });
       for await (const macro of iterator) {
@@ -35,8 +36,7 @@ const LIST_MACROS_COMMAND = buildCommand({
         return {
           type: InteractionResponseTypes.ChannelMessageWithSource,
           data: {
-            content:
-              `You don't have macros yet <@${userId}>. Please create one first.`,
+            content: `You don't have macros yet <@${userId}>. Please create one first.`,
           },
         };
       }

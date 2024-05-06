@@ -1,5 +1,7 @@
 /// <reference lib="deno.unstable" />
 import { buildCommand, getOptionValue, getUser } from "@/commands/utils.ts";
+import { openKv } from "@/kv.ts";
+import { DiceRoller } from "dice-roller";
 import {
   ApplicationCommandOptionTypes,
   ApplicationCommandTypes,
@@ -7,7 +9,6 @@ import {
   InteractionResponseTypes,
 } from "discord";
 import { z } from "zod";
-import { DiceRoller } from "dice-roller";
 
 const ROLL_MACRO_COMMAND = buildCommand({
   name: "roll_macro",
@@ -45,7 +46,7 @@ const ROLL_MACRO_COMMAND = buildCommand({
     try {
       const roller = new DiceRoller();
 
-      const kv = await Deno.openKv();
+      const kv = await openKv();
       const macro = (await kv.get<string>(["macro", userId, macroName]))
         .value;
       kv.close();

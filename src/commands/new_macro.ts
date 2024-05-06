@@ -1,5 +1,7 @@
 /// <reference lib="deno.unstable" />
 import { buildCommand, getOptionValue, getUser } from "@/commands/utils.ts";
+import { openKv } from "@/kv.ts";
+import { DiceRoller } from "dice-roller";
 import {
   ApplicationCommandOptionTypes,
   ApplicationCommandTypes,
@@ -7,7 +9,6 @@ import {
   InteractionResponseTypes,
 } from "discord";
 import { z } from "zod";
-import { DiceRoller } from "dice-roller";
 
 const NEW_MACRO_COMMAND = buildCommand({
   name: "new_macro",
@@ -47,15 +48,14 @@ const NEW_MACRO_COMMAND = buildCommand({
 
       roller.roll(expression);
 
-      const kv = await Deno.openKv();
+      const kv = await openKv();
       await kv.set(["macro", userId, macroName], expression);
       kv.close();
 
       return {
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
-          content:
-            `<@${userId}> you just created your new macro! Enjoy. Just write down \`/roll_macro ${macroName}\` now!`,
+          content: `<@${userId}> you just created your new macro! Enjoy. Just write down \`/roll_macro ${macroName}\` now!`,
         },
       };
     } catch (error) {
