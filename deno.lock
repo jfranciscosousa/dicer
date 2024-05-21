@@ -76,11 +76,11 @@
       "zod-error@1.5.0": {
         "integrity": "sha512-zzopKZ/skI9iXpqCEPj+iLCKl9b88E43ehcU+sbRoHuwGd9F1IDVGQ70TyO6kmfiRL1g4IXkjsXK+g1gLYl4WQ==",
         "dependencies": {
-          "zod": "zod@3.23.6"
+          "zod": "zod@3.23.8"
         }
       },
-      "zod@3.23.6": {
-        "integrity": "sha512-RTHJlZhsRbuA8Hmp/iNL7jnfc4nZishjsanDAfEY1QpDQZCahUp3xDzl+zfweE9BklxMUcgBgS1b7Lvie/ZVwA==",
+      "zod@3.23.8": {
+        "integrity": "sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==",
         "dependencies": {}
       }
     }
@@ -522,6 +522,19 @@
     "https://deno.land/x/zod@v3.22.4/locales/en.ts": "a7a25cd23563ccb5e0eed214d9b31846305ddbcdb9c5c8f508b108943366ab4c",
     "https://deno.land/x/zod@v3.22.4/mod.ts": "64e55237cb4410e17d968cd08975566059f27638ebb0b86048031b987ba251c4",
     "https://deno.land/x/zod@v3.22.4/types.ts": "724185522fafe43ee56a52333958764c8c8cd6ad4effa27b42651df873fc151e",
+    "https://deno.land/x/zod@v3.23.8/ZodError.ts": "528da200fbe995157b9ae91498b103c4ef482217a5c086249507ac850bd78f52",
+    "https://deno.land/x/zod@v3.23.8/errors.ts": "5285922d2be9700cc0c70c95e4858952b07ae193aa0224be3cbd5cd5567eabef",
+    "https://deno.land/x/zod@v3.23.8/external.ts": "a6cfbd61e9e097d5f42f8a7ed6f92f93f51ff927d29c9fbaec04f03cbce130fe",
+    "https://deno.land/x/zod@v3.23.8/helpers/enumUtil.ts": "54efc393cc9860e687d8b81ff52e980def00fa67377ad0bf8b3104f8a5bf698c",
+    "https://deno.land/x/zod@v3.23.8/helpers/errorUtil.ts": "7a77328240be7b847af6de9189963bd9f79cab32bbc61502a9db4fe6683e2ea7",
+    "https://deno.land/x/zod@v3.23.8/helpers/parseUtil.ts": "c14814d167cc286972b6e094df88d7d982572a08424b7cd50f862036b6fcaa77",
+    "https://deno.land/x/zod@v3.23.8/helpers/partialUtil.ts": "998c2fe79795257d4d1cf10361e74492f3b7d852f61057c7c08ac0a46488b7e7",
+    "https://deno.land/x/zod@v3.23.8/helpers/typeAliases.ts": "0fda31a063c6736fc3cf9090dd94865c811dfff4f3cb8707b932bf937c6f2c3e",
+    "https://deno.land/x/zod@v3.23.8/helpers/util.ts": "30c273131661ca5dc973f2cfb196fa23caf3a43e224cdde7a683b72e101a31fc",
+    "https://deno.land/x/zod@v3.23.8/index.ts": "d27aabd973613985574bc31f39e45cb5d856aa122ef094a9f38a463b8ef1a268",
+    "https://deno.land/x/zod@v3.23.8/locales/en.ts": "a7a25cd23563ccb5e0eed214d9b31846305ddbcdb9c5c8f508b108943366ab4c",
+    "https://deno.land/x/zod@v3.23.8/mod.ts": "ec6e2b1255c1a350b80188f97bd0a6bac45801bb46fc48f50b9763aa66046039",
+    "https://deno.land/x/zod@v3.23.8/types.ts": "1b172c90782b1eaa837100ebb6abd726d79d6c1ec336350c8e851e0fd706bf5c",
     "https://esm.sh/preact-render-to-string@5.2.4?target=deno": "c595fee4372b3f7f083d3976c205bb3cbabb057327813f9c871d22ed0076abd6",
     "https://esm.sh/preact@10.10.6?target=deno": "1e29f08f3e8ad648c83062cbb69e040235a18441c8b2e58aac3d82b39393bba2",
     "https://esm.sh/stable/preact@10.10.6/deno/preact.mjs": "8c7289f4add6fb4e6f9066a7f39b59e61254e32ed8204551b6499aed333921fb",
@@ -530,5 +543,11 @@
     "https://esm.sh/v135/preact-render-to-string@5.2.4/deno/preact-render-to-string.mjs": "de112bd2735b57df3f3b4446265dd8e5eb057c95f152af07b9efe89c2c4e6d59",
     "https://unpkg.com/@evan/wasm@0.0.93/target/ed25519/deno.js": "9728126890f17b71cee41afdab8a4bc362f6b9f409fe0a5c4f6ca9f3b510fd3a",
     "https://unpkg.com/@evan/wasm@0.0.94/target/zlib/deno.js": "e65131e1c1f45e64960f2699a0b868927ea5c9201c4b986a7cfc57b18be5cc09"
+  },
+  "workspace": {
+    "dependencies": [
+      "npm:@dice-roller/rpg-dice-roller@5.5.0",
+      "npm:zod-error@1.5.0"
+    ]
   }
 }

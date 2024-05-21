@@ -31,14 +31,14 @@ const parsedConfig = configSchema.safeParse(env);
 if (!parsedConfig.success) {
   console.error(
     "\x1b[31m%s\x1b[0m",
-    "Environment variables error, please review them!"
+    "Environment variables error, please review them!",
   );
   console.error(
     "\x1b[31m%s\x1b[0m",
     // deno-lint-ignore no-explicit-any
     generateErrorMessage(parsedConfig.error.issues as any, {
       delimiter: { error: "\n" },
-    })
+    }),
   );
 
   throw new Error("bad env variables");

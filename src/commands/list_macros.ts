@@ -36,7 +36,8 @@ const LIST_MACROS_COMMAND = buildCommand({
         return {
           type: InteractionResponseTypes.ChannelMessageWithSource,
           data: {
-            content: `You don't have macros yet <@${userId}>. Please create one first.`,
+            content:
+              `You don't have macros yet <@${userId}>. Please create one first.`,
           },
         };
       }
