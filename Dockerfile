@@ -22,6 +22,7 @@ COPY --from=bin /deno /bin/deno
 
 WORKDIR /deno-dir
 COPY . .
+RUN deno cache src/prod.ts
 
 ENTRYPOINT ["/bin/deno"]
 CMD ["task", "prod"]
