@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: 'Task'
+        description: "Task"
         required: true
 
 jobs:

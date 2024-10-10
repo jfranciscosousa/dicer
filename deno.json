@@ -1,20 +1,19 @@
 {
   "imports": {
     "@/": "./src/",
-    "asserts": "https://deno.land/std@0.224.0/testing/asserts.ts",
     "camelize": "https://deno.land/x/camelize@2.0.0/mod.ts",
+    "dice-roller": "npm:@dice-roller/rpg-dice-roller@5.5.0",
     "discord": "https://deno.land/x/discordeno@18.0.1/mod.ts",
     "dotenv": "https://deno.land/x/dotenv@v3.2.2/mod.ts",
-    "dice-roller": "npm:@dice-roller/rpg-dice-roller@5.5.0",
     "sift": "https://deno.land/x/sift@0.6.0/mod.ts",
-    "zod": "https://deno.land/x/zod@v3.23.8/mod.ts",
+    "zod": "npm:zod@^3.23.8",
     "zod-error": "npm:zod-error@1.5.0"
   },
   "tasks": {
-    "dev": "deno run --unstable --allow-net=discord.com,gateway.discord.gg --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/dev.ts",
-    "prod": "deno run --unstable --allow-net=discord.com,gateway.discord.gg,0.0.0.0:8000,api.deno.com,us-east4.txnproxy.deno-gcp.net --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/prod.ts",
-    "run": "deno run --allow-read=.env,.env.defaults,src/commands --allow-net=discord.com,gateway.discord.gg --allow-env",
-    "regen-lock": "deno cache --reload --lock-write src/dev.ts src/prod.ts",
-    "check-all": "deno fmt && deno lint && deno check src/**/*.ts tasks/**/*.ts test/**/*.ts"
+    "dev": "deno run --unstable --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev --allow-net=discord.com,gateway.discord.gg --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/dev.ts",
+    "prod": "deno run --unstable --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev --allow-net=discord.com,gateway.discord.gg,0.0.0.0:8000,api.deno.com,us-east4.txnproxy.deno-gcp.net --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/prod.ts",
+    "run": "deno run --allow-read=.env,.env.defaults,src/commands --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev --allow-net=discord.com,gateway.discord.gg --allow-env",
+    "regen-lock": "deno cache --reload --frozen=false --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/dev.ts src/prod.ts",
+    "check-all": "deno fmt && deno lint && deno check --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/**/*.ts tasks/**/*.ts test/**/*.ts"
   }
 }
