@@ -14,6 +14,7 @@
     "prod": "deno run --unstable --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev --allow-net=discord.com,gateway.discord.gg,0.0.0.0:8000,api.deno.com,us-east4.txnproxy.deno-gcp.net --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/prod.ts",
     "run": "deno run --allow-read=.env,.env.defaults,src/commands --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev --allow-net=discord.com,gateway.discord.gg --allow-env",
     "regen-lock": "deno cache --reload --frozen=false --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/dev.ts src/prod.ts",
+    "cache-all": "deno cache --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/dev.ts src/prod.ts",
     "check-all": "deno fmt && deno lint && deno check --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/**/*.ts tasks/**/*.ts test/**/*.ts"
   }
 }

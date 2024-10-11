@@ -20,8 +20,5 @@ jobs:
         with:
           deno-version: ${{ steps.versions.outputs.deno }}
 
-      - name: Lint
-        run: deno lint
-
       - name: Check
-        run: deno check **/*.ts
+        run: deno task check-all
