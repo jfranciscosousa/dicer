@@ -13,8 +13,8 @@ import HomePage from "@/home_page.tsx";
 const app = new Hono();
 
 async function bot(c: Context) {
-  const signature = c.req.header("X-Signature-Ed25519")!;
-  const timestamp = c.req.header("X-Signature-Timestamp")!;
+  const signature = c.req.header("X-Signature-Ed25519") || "";
+  const timestamp = c.req.header("X-Signature-Timestamp") || "";
   // verifySignature() verifies if the request is coming from Discord.
   // When the request's signature is not valid, we return a 401 and this is
   // important as Discord sends invalid requests to test our verification.
