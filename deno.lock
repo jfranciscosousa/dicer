@@ -1,89 +1,80 @@
 {
-  "version": "3",
-  "packages": {
-    "specifiers": {
-      "npm:@dice-roller/rpg-dice-roller@5.5.0": "npm:@dice-roller/rpg-dice-roller@5.5.0",
-      "npm:zod-error@1.5.0": "npm:zod-error@1.5.0",
-      "npm:zod@^3.23.8": "npm:zod@3.23.8"
+  "version": "4",
+  "specifiers": {
+    "npm:@dice-roller/rpg-dice-roller@5.5.0": "5.5.0",
+    "npm:hono@^4.6.4": "4.6.4",
+    "npm:zod-error@1.5.0": "1.5.0",
+    "npm:zod@^3.23.8": "3.23.8"
+  },
+  "npm": {
+    "@babel/runtime@7.25.7": {
+      "integrity": "sha512-FjoyLe754PMiYsFaN5C94ttGiOmBNYTf6pLr4xXHAT5uctHb092PBszndLDR5XA/jghQvn4n7JMHl7dmTgbm9w==",
+      "dependencies": [
+        "regenerator-runtime"
+      ]
     },
-    "npm": {
-      "@babel/runtime@7.25.7": {
-        "integrity": "sha512-FjoyLe754PMiYsFaN5C94ttGiOmBNYTf6pLr4xXHAT5uctHb092PBszndLDR5XA/jghQvn4n7JMHl7dmTgbm9w==",
-        "dependencies": {
-          "regenerator-runtime": "regenerator-runtime@0.14.1"
-        }
-      },
-      "@dice-roller/rpg-dice-roller@5.5.0": {
-        "integrity": "sha512-ip318MKhfRvqzpXNQaMyqJkOWbeOlaiIopfyluantEVF706fRP4Jy0WsTZrnKhRvhJTZTJa5dTTWqcoPmt1Xww==",
-        "dependencies": {
-          "mathjs": "mathjs@11.12.0",
-          "random-js": "random-js@2.1.0"
-        }
-      },
-      "complex.js@2.3.0": {
-        "integrity": "sha512-wWHzifVdUPbPBhh+ObvpVGIzrAQjTvmnnEJKBfLW5YbyAB6OXQ0r+Q92fByMIrSSlxUuCujqxriJSR6R/kVxPA==",
-        "dependencies": {}
-      },
-      "decimal.js@10.4.3": {
-        "integrity": "sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==",
-        "dependencies": {}
-      },
-      "escape-latex@1.2.0": {
-        "integrity": "sha512-nV5aVWW1K0wEiUIEdZ4erkGGH8mDxGyxSeqPzRNtWP7ataw+/olFObw7hujFWlVjNsaDFw5VZ5NzVSIqRgfTiw==",
-        "dependencies": {}
-      },
-      "fraction.js@4.3.4": {
-        "integrity": "sha512-pwiTgt0Q7t+GHZA4yaLjObx4vXmmdcS0iSJ19o8d/goUGgItX9UZWKWNnLHehxviD8wU2IWRsnR8cD5+yOJP2Q==",
-        "dependencies": {}
-      },
-      "javascript-natural-sort@0.7.1": {
-        "integrity": "sha512-nO6jcEfZWQXDhOiBtG2KvKyEptz7RVbpGP4vTD2hLBdmNQSsCiicO2Ioinv6UI4y9ukqnBpy+XZ9H6uLNgJTlw==",
-        "dependencies": {}
-      },
-      "mathjs@11.12.0": {
-        "integrity": "sha512-UGhVw8rS1AyedyI55DGz9q1qZ0p98kyKPyc9vherBkoueLntPfKtPBh14x+V4cdUWK0NZV2TBwqRFlvadscSuw==",
-        "dependencies": {
-          "@babel/runtime": "@babel/runtime@7.25.7",
-          "complex.js": "complex.js@2.3.0",
-          "decimal.js": "decimal.js@10.4.3",
-          "escape-latex": "escape-latex@1.2.0",
-          "fraction.js": "fraction.js@4.3.4",
-          "javascript-natural-sort": "javascript-natural-sort@0.7.1",
-          "seedrandom": "seedrandom@3.0.5",
-          "tiny-emitter": "tiny-emitter@2.1.0",
-          "typed-function": "typed-function@4.2.1"
-        }
-      },
-      "random-js@2.1.0": {
-        "integrity": "sha512-CRUyWmnzmZBA7RZSVGq0xMqmgCyPPxbiKNLFA5ud7KenojVX2s7Gv+V7eB52beKTPGxWRnVZ7D/tCIgYJJ8vNQ==",
-        "dependencies": {}
-      },
-      "regenerator-runtime@0.14.1": {
-        "integrity": "sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==",
-        "dependencies": {}
-      },
-      "seedrandom@3.0.5": {
-        "integrity": "sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==",
-        "dependencies": {}
-      },
-      "tiny-emitter@2.1.0": {
-        "integrity": "sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==",
-        "dependencies": {}
-      },
-      "typed-function@4.2.1": {
-        "integrity": "sha512-EGjWssW7Tsk4DGfE+5yluuljS1OGYWiI1J6e8puZz9nTMM51Oug8CD5Zo4gWMsOhq5BI+1bF+rWTm4Vbj3ivRA==",
-        "dependencies": {}
-      },
-      "zod-error@1.5.0": {
-        "integrity": "sha512-zzopKZ/skI9iXpqCEPj+iLCKl9b88E43ehcU+sbRoHuwGd9F1IDVGQ70TyO6kmfiRL1g4IXkjsXK+g1gLYl4WQ==",
-        "dependencies": {
-          "zod": "zod@3.23.8"
-        }
-      },
-      "zod@3.23.8": {
-        "integrity": "sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==",
-        "dependencies": {}
-      }
+    "@dice-roller/rpg-dice-roller@5.5.0": {
+      "integrity": "sha512-ip318MKhfRvqzpXNQaMyqJkOWbeOlaiIopfyluantEVF706fRP4Jy0WsTZrnKhRvhJTZTJa5dTTWqcoPmt1Xww==",
+      "dependencies": [
+        "mathjs",
+        "random-js"
+      ]
+    },
+    "complex.js@2.3.0": {
+      "integrity": "sha512-wWHzifVdUPbPBhh+ObvpVGIzrAQjTvmnnEJKBfLW5YbyAB6OXQ0r+Q92fByMIrSSlxUuCujqxriJSR6R/kVxPA=="
+    },
+    "decimal.js@10.4.3": {
+      "integrity": "sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA=="
+    },
+    "escape-latex@1.2.0": {
+      "integrity": "sha512-nV5aVWW1K0wEiUIEdZ4erkGGH8mDxGyxSeqPzRNtWP7ataw+/olFObw7hujFWlVjNsaDFw5VZ5NzVSIqRgfTiw=="
+    },
+    "fraction.js@4.3.4": {
+      "integrity": "sha512-pwiTgt0Q7t+GHZA4yaLjObx4vXmmdcS0iSJ19o8d/goUGgItX9UZWKWNnLHehxviD8wU2IWRsnR8cD5+yOJP2Q=="
+    },
+    "hono@4.6.4": {
+      "integrity": "sha512-T5WqBkTOcIQblqBKB5mpzaH/A+dSpvVe938xZJCHOmOuYfF7DSwE/9/10+BMvwSPq9N/f6LiQ38HxrZSQOsXKw=="
+    },
+    "javascript-natural-sort@0.7.1": {
+      "integrity": "sha512-nO6jcEfZWQXDhOiBtG2KvKyEptz7RVbpGP4vTD2hLBdmNQSsCiicO2Ioinv6UI4y9ukqnBpy+XZ9H6uLNgJTlw=="
+    },
+    "mathjs@11.12.0": {
+      "integrity": "sha512-UGhVw8rS1AyedyI55DGz9q1qZ0p98kyKPyc9vherBkoueLntPfKtPBh14x+V4cdUWK0NZV2TBwqRFlvadscSuw==",
+      "dependencies": [
+        "@babel/runtime",
+        "complex.js",
+        "decimal.js",
+        "escape-latex",
+        "fraction.js",
+        "javascript-natural-sort",
+        "seedrandom",
+        "tiny-emitter",
+        "typed-function"
+      ]
+    },
+    "random-js@2.1.0": {
+      "integrity": "sha512-CRUyWmnzmZBA7RZSVGq0xMqmgCyPPxbiKNLFA5ud7KenojVX2s7Gv+V7eB52beKTPGxWRnVZ7D/tCIgYJJ8vNQ=="
+    },
+    "regenerator-runtime@0.14.1": {
+      "integrity": "sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw=="
+    },
+    "seedrandom@3.0.5": {
+      "integrity": "sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg=="
+    },
+    "tiny-emitter@2.1.0": {
+      "integrity": "sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q=="
+    },
+    "typed-function@4.2.1": {
+      "integrity": "sha512-EGjWssW7Tsk4DGfE+5yluuljS1OGYWiI1J6e8puZz9nTMM51Oug8CD5Zo4gWMsOhq5BI+1bF+rWTm4Vbj3ivRA=="
+    },
+    "zod-error@1.5.0": {
+      "integrity": "sha512-zzopKZ/skI9iXpqCEPj+iLCKl9b88E43ehcU+sbRoHuwGd9F1IDVGQ70TyO6kmfiRL1g4IXkjsXK+g1gLYl4WQ==",
+      "dependencies": [
+        "zod"
+      ]
+    },
+    "zod@3.23.8": {
+      "integrity": "sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g=="
     }
   },
   "remote": {
@@ -522,6 +513,7 @@
   "workspace": {
     "dependencies": [
       "npm:@dice-roller/rpg-dice-roller@5.5.0",
+      "npm:hono@^4.6.4",
       "npm:zod-error@1.5.0",
       "npm:zod@^3.23.8"
     ]

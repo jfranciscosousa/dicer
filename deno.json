@@ -5,16 +5,20 @@
     "dice-roller": "npm:@dice-roller/rpg-dice-roller@5.5.0",
     "discord": "https://deno.land/x/discordeno@18.0.1/mod.ts",
     "dotenv": "https://deno.land/x/dotenv@v3.2.2/mod.ts",
-    "sift": "https://deno.land/x/sift@0.6.0/mod.ts",
+    "hono": "npm:hono@^4.6.4",
     "zod": "npm:zod@^3.23.8",
     "zod-error": "npm:zod-error@1.5.0"
   },
   "tasks": {
     "dev": "deno run --unstable --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev --allow-net=discord.com,gateway.discord.gg --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/dev.ts",
-    "prod": "deno run --unstable --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev --allow-net=discord.com,gateway.discord.gg,0.0.0.0:8000,api.deno.com,us-east4.txnproxy.deno-gcp.net --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/prod.ts",
+    "prod": "deno run --unstable --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev --allow-net=discord.com,gateway.discord.gg,0.0.0.0:8000,api.deno.com,us-east4.txnproxy.deno-gcp.net --allow-read=.env,.env.defaults,src/commands --allow-env --watch src/prod.tsx",
     "run": "deno run --allow-read=.env,.env.defaults,src/commands --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev --allow-net=discord.com,gateway.discord.gg --allow-env",
-    "regen-lock": "deno cache --reload --frozen=false --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/dev.ts src/prod.ts",
-    "cache-all": "deno cache --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/dev.ts src/prod.ts",
+    "regen-lock": "deno cache --reload --frozen=false --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/dev.ts src/prod.tsx",
+    "cache-all": "deno cache --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/dev.ts src/prod.tsx",
     "check-all": "deno fmt && deno lint && deno check --allow-import=unpkg.com,deno.land,esm.sh,cdn.skypack.dev src/**/*.ts tasks/**/*.ts test/**/*.ts"
+  },
+  "compilerOptions": {
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx"
   }
 }

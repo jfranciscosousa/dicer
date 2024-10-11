@@ -1,5 +1,3 @@
-/** @jsx h */
-import { h, jsx } from "sift";
 import config from "@/config.ts";
 
 const styles = `
@@ -56,7 +54,7 @@ code {
 }
 `;
 
-function HomePage() {
+export default function HomePage() {
   return (
     <html>
       <head>
@@ -108,5 +106,3 @@ function HomePage() {
     </html>
   );
 }
-
-export default () => jsx(<HomePage />);
