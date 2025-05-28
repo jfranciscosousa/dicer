@@ -1,20 +1,7 @@
-import { config as dotenv } from "dotenv";
 import { z } from "zod";
 import { generateErrorMessage } from "zod-error";
 
-function loadEnv() {
-  // Deno.readFileSync doesn't exist on serverless contexts
-  if (typeof Deno.readFileSync === "undefined") return Deno.env.toObject();
-
-  const localDotenvConfig = dotenv();
-
-  // Only use dotenv if a DEVELOPMENT flag exists
-  if (localDotenvConfig.DEVELOPMENT === "true") return localDotenvConfig;
-
-  return Deno.env.toObject();
-}
-
-const env = loadEnv();
+const env = Deno.env.toObject();
 
 const configSchema = z.object({
   DISCORD_APPLICATION_ID: z.string().regex(/^\d+$/).transform(BigInt),

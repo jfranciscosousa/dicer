@@ -1,4 +1,4 @@
-import { Interaction, InteractionTypes, UserToggles } from "discord";
+import { Interaction, InteractionTypes, User, UserToggles } from "discord";
 
 export function buildMockInteraction(data: Interaction["data"]): Interaction {
   return {
@@ -16,8 +16,8 @@ export function buildMockInteraction(data: Interaction["data"]): Interaction {
         discriminator: "#123456",
         username: "TestUser",
       }),
-    },
+    } as User,
     version: 1,
     data,
-  };
+  } as Interaction;
 }

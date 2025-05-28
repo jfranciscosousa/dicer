@@ -1,5 +1,5 @@
 import { Context, Hono } from "hono";
-import { camelize } from "camelize";
+import camelcaseKeys from "camelcase-keys";
 import {
   Interaction,
   InteractionResponseTypes,
@@ -29,7 +29,7 @@ async function bot(c: Context) {
     return c.json({ error: "Invalid request" }, 401);
   }
 
-  const interaction = camelize<Interaction>(JSON.parse(body)) as Interaction;
+  const interaction = camelcaseKeys<Interaction>(JSON.parse(body));
 
   // Handles Discord API pings to validate webhooks
   if (interaction.type === InteractionTypes.Ping) {
