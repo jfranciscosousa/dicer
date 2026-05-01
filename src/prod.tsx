@@ -1,4 +1,5 @@
 import { Context, Hono } from "hono";
+import { logger } from "hono/logger";
 import camelcaseKeys from "camelcase-keys";
 import {
   Interaction,
@@ -10,7 +11,27 @@ import config from "@/config.ts";
 import HomePage from "@/home_page.tsx";
 import { verifyDiscordSignature } from "@/verifyDiscordSignature.ts";
 
+async function commandLogger(c: Context, next: () => Promise<void>) {
+  try {
+    const body = await c.req.text();
+    const payload = JSON.parse(body);
+    const commandName = payload?.data?.name;
+    const options = payload?.data?.options as
+      | Array<{ name: string; value: unknown }>
+      | undefined;
+    const args = options?.map(({ name, value }) => `${name}=${value}`).join(
+      " ",
+    );
+    if (commandName) console.log(`Command: ${commandName}${args ? ` ${args}` : ""}`);
+  } catch {
+    console.log("Malformed request, invalid JSON");
+  }
+  await next();
+}
+
 const app = new Hono();
+app.use(logger());
+app.use("/bot", commandLogger);
 
 async function bot(c: Context) {
   const signature = c.req.header("X-Signature-Ed25519") || "";
