@@ -4,26 +4,24 @@ import {
   Interaction,
   InteractionResponseTypes,
   InteractionTypes,
-  verifySignature,
 } from "discord";
 import { COMMANDS } from "@/commands.ts";
 import config from "@/config.ts";
 import HomePage from "@/home_page.tsx";
+import { verifyDiscordSignature } from "@/verifyDiscordSignature.ts";
 
 const app = new Hono();
 
 async function bot(c: Context) {
   const signature = c.req.header("X-Signature-Ed25519") || "";
   const timestamp = c.req.header("X-Signature-Timestamp") || "";
-  // verifySignature() verifies if the request is coming from Discord.
-  // When the request's signature is not valid, we return a 401 and this is
-  // important as Discord sends invalid requests to test our verification.
-  const { isValid, body } = verifySignature({
+  const body = await c.req.text();
+  const isValid = await verifyDiscordSignature(
+    config.DISCORD_PUBLIC_KEY,
     signature,
     timestamp,
-    body: await c.req.text(),
-    publicKey: config.DISCORD_PUBLIC_KEY,
-  });
+    body,
+  );
 
   if (!isValid) {
     return c.json({ error: "Invalid request" }, 401);
