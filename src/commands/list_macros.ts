@@ -1,11 +1,7 @@
 /// <reference lib="deno.unstable" />
 import { buildCommand, getUser } from "@/commands/utils.ts";
 import { openKv } from "@/kv.ts";
-import {
-  ApplicationCommandTypes,
-  Interaction,
-  InteractionResponseTypes,
-} from "discord";
+import { ApplicationCommandTypes, InteractionResponseTypes } from "discord";
 import { z } from "zod";
 
 const LIST_MACROS_COMMAND = buildCommand({
@@ -13,7 +9,7 @@ const LIST_MACROS_COMMAND = buildCommand({
   dmPermission: true,
   description: "List all of your macros.",
   type: ApplicationCommandTypes.ChatInput,
-  buildArguments: (interaction: Interaction) => {
+  buildArguments: (interaction) => {
     const schema = z.object({
       userId: z.string().or(z.bigint()).transform(BigInt),
     });
@@ -22,7 +18,7 @@ const LIST_MACROS_COMMAND = buildCommand({
       userId: getUser(interaction).id,
     });
   },
-  handler: async ({ userId }) => {
+  run: async ({ userId }) => {
     try {
       const kv = await openKv();
       const macros: { key: string; value: string }[] = [];

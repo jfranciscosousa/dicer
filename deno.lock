@@ -5,11 +5,9 @@
     "npm:@dice-roller/rpg-dice-roller@5.5.1": "5.5.1",
     "npm:@discordeno/bot@21": "21.0.0",
     "npm:camelcase-keys@^10.0.2": "10.0.2",
-    "npm:discordeno@18": "18.0.1",
-    "npm:discordeno@18.0.1": "18.0.1",
+    "npm:dd-cache-proxy@latest": "2.8.0_@discordeno+bot@21.0.0",
     "npm:discordeno@19": "19.0.0",
     "npm:discordeno@21": "21.0.0",
-    "npm:discordeno@^18.0.1": "18.0.1",
     "npm:hono@^4.12.15": "4.12.15",
     "npm:zod-error@2": "2.0.0_zod@4.3.6",
     "npm:zod@^4.3.6": "4.3.6"
@@ -17,19 +15,6 @@
   "npm": {
     "@babel/runtime@7.27.3": {
       "integrity": "sha512-7EYtGezsdiDMyY80+65EzwiGmcJqpmcZCojSXaRgdrBaGtWTgDZKq69cPIVped6MkIM78cTQ2GOiEYjwOlG4xw=="
-    },
-    "@deno/shim-deno-test@0.3.3": {
-      "integrity": "sha512-Ge0Tnl7zZY0VvEfgsyLhjid8DzI1d0La0dgm+3m0/A8gZXgp5xwlyIyue5e4SCUuVB/3AH/0lun9LcJhhTwmbg=="
-    },
-    "@deno/shim-deno@0.9.0": {
-      "integrity": "sha512-iP+qdI4Oy/Mw9yv40TqdjNKL+stpKDo8drki2cKisTXgZf+GoIdMhIuODxSypRyv6wxIuHNx7ZiKE3Sl3kAHuw==",
-      "dependencies": [
-        "@deno/shim-deno-test",
-        "which"
-      ]
-    },
-    "@deno/shim-timers@0.1.0": {
-      "integrity": "sha512-XFRnB5Rtbkd5RiYHwhugNK9gvDgYXmFTUOT5dmhWCKG7WnOWZggbJMnH1NcyYS3QgHvmaTOaHCyNFNSv57j3Dg=="
     },
     "@dice-roller/rpg-dice-roller@5.5.0": {
       "integrity": "sha512-ip318MKhfRvqzpXNQaMyqJkOWbeOlaiIopfyluantEVF706fRP4Jy0WsTZrnKhRvhJTZTJa5dTTWqcoPmt1Xww==",
@@ -117,9 +102,6 @@
         "@discordeno/types@21.0.0"
       ]
     },
-    "@fastify/busboy@2.1.1": {
-      "integrity": "sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA=="
-    },
     "camelcase-keys@10.0.2": {
       "integrity": "sha512-PVHCLVbJ7nWGal0lPAmBN5eSLjIynlMUk2EPmL9aPl6QyJ6+FoszTKwldPzkuVqg5teZbPTbb8Oenzyw9GSJRw==",
       "dependencies": [
@@ -135,17 +117,14 @@
     "complex.js@2.4.2": {
       "integrity": "sha512-qtx7HRhPGSCBtGiST4/WGHuW+zeaND/6Ld+db6PbrulIB1i2Ev/2UPiqcmpQNPSyfBKraC0EOvOKCB5dGZKt3g=="
     },
+    "dd-cache-proxy@2.8.0_@discordeno+bot@21.0.0": {
+      "integrity": "sha512-1xkDkEn/SWEHnqlM/V5Y2pbA7izHmQJKk+Znh+oPtgrqGUFHp3P00J38fnSlIXUnXTfVsvcaA49UYvviQ7aHZw==",
+      "dependencies": [
+        "@discordeno/bot@21.0.0"
+      ]
+    },
     "decimal.js@10.5.0": {
       "integrity": "sha512-8vDa8Qxvr/+d94hSh5P3IJwI5t8/c0KsMp+g8bNw9cY2icONa5aPfvKeieW1WlG0WQYwwhJ7mjui2xtiePQSXw=="
-    },
-    "discordeno@18.0.1": {
-      "integrity": "sha512-d3D/HpC39YGInmxy2HK90kPpMMu2gYYsWuwtEEFPWpq2hlR9dvad4ihvLursPz5bj4Ob1NWOgPv3kz/bwMSIpw==",
-      "dependencies": [
-        "@deno/shim-deno",
-        "@deno/shim-timers",
-        "undici",
-        "ws"
-      ]
     },
     "discordeno@19.0.0": {
       "integrity": "sha512-Rg/WGLw6Wwi8XdVFqJQUQQ8BBfOJBNbPguiaetEGsgjhM8Z/X3EBD0PpqaqKtvB4IwIPhRZsK12qvSNz4NZmog==",
@@ -181,9 +160,6 @@
     },
     "hono@4.12.15": {
       "integrity": "sha512-qM0jDhFEaCBb4TxoW7f53Qrpv9RBiayUHo0S52JudprkhvpjIrGoU1mnnr29Fvd1U335ZFPZQY1wlkqgfGXyLg=="
-    },
-    "isexe@2.0.0": {
-      "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw=="
     },
     "javascript-natural-sort@0.7.1": {
       "integrity": "sha512-nO6jcEfZWQXDhOiBtG2KvKyEptz7RVbpGP4vTD2hLBdmNQSsCiicO2Ioinv6UI4y9ukqnBpy+XZ9H6uLNgJTlw=="
@@ -244,19 +220,6 @@
     },
     "typed-function@4.2.1": {
       "integrity": "sha512-EGjWssW7Tsk4DGfE+5yluuljS1OGYWiI1J6e8puZz9nTMM51Oug8CD5Zo4gWMsOhq5BI+1bF+rWTm4Vbj3ivRA=="
-    },
-    "undici@5.29.0": {
-      "integrity": "sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==",
-      "dependencies": [
-        "@fastify/busboy"
-      ]
-    },
-    "which@2.0.2": {
-      "integrity": "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==",
-      "dependencies": [
-        "isexe"
-      ],
-      "bin": true
     },
     "ws@8.18.2": {
       "integrity": "sha512-DMricUmwGZUVr++AEAe2uiVM7UoO9MAVZMDu05UQOaUII0lp+zOzLLU4Xqh/JvTqklB1T4uELaaPBKyjE1r4fQ=="
@@ -708,7 +671,8 @@
     "dependencies": [
       "npm:@dice-roller/rpg-dice-roller@5.5.1",
       "npm:camelcase-keys@^10.0.2",
-      "npm:discordeno@^18.0.1",
+      "npm:dd-cache-proxy@latest",
+      "npm:discordeno@21",
       "npm:hono@^4.12.15",
       "npm:zod-error@2",
       "npm:zod@^4.3.6"

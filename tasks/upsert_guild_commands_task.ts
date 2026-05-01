@@ -1,19 +1,23 @@
 import {
   ApplicationCommand,
-  getGuildApplicationCommands,
-  startBot,
-  upsertGuildApplicationCommands,
+  createBotHelpers,
+  DiscordUnavailableGuild,
 } from "discord";
 import bot from "@/bot.ts";
 import { COMMANDS } from "@/commands.ts";
 
-await startBot(bot);
+const {
+  getGuildApplicationCommands,
+  upsertGuildApplicationCommands,
+} = createBotHelpers(bot);
 
-async function fetchAllCommands(): Promise<ApplicationCommand[]> {
+async function fetchAllCommands(
+  guilds: DiscordUnavailableGuild[],
+): Promise<ApplicationCommand[]> {
   const commands = await Promise.all(
-    Array.from(bot.activeGuildIds).flatMap(async (guildId) =>
-      (await getGuildApplicationCommands(bot, guildId)).array()
-    ),
+    guilds.flatMap(async (
+      guild,
+    ) => (await getGuildApplicationCommands(guild.id))),
   );
 
   return commands.flat();
@@ -21,7 +25,7 @@ async function fetchAllCommands(): Promise<ApplicationCommand[]> {
 
 bot.events.ready = async (_bot, { guilds }) => {
   // Get existing commands
-  const existingCommands = await fetchAllCommands();
+  const existingCommands = await fetchAllCommands(guilds);
 
   // Add the existing ids to existing commands so we update them instead of creating
   const commandsWithId = Object.values(COMMANDS).map((command) => {
@@ -37,7 +41,7 @@ bot.events.ready = async (_bot, { guilds }) => {
   // For each guild, upsert existing commands
   await Promise.all(
     Array.from(guilds).map((guildId) =>
-      upsertGuildApplicationCommands(bot, guildId, commandsWithId)
+      upsertGuildApplicationCommands(guildId.id, commandsWithId)
     ),
   );
 
@@ -49,3 +53,7 @@ bot.events.ready = async (_bot, { guilds }) => {
 
   Deno.exit();
 };
+
+console.log("Starting bot");
+await bot.start();
+console.log("Bot started");

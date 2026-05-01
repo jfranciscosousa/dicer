@@ -1,15 +1,15 @@
-import { sendInteractionResponse, startBot } from "discord";
+import { createBotHelpers } from "discord";
 import bot from "@/bot.ts";
 import config from "@/config.ts";
 import { COMMANDS } from "@/commands.ts";
-
-await startBot(bot);
 
 console.log(
   `https://discord.com/api/oauth2/authorize?client_id=${config.DISCORD_APPLICATION_ID}&scope=bot%20applications.commands`,
 );
 
-bot.events.interactionCreate = async (_bot, interaction) => {
+const { sendInteractionResponse } = createBotHelpers(bot);
+
+bot.events.interactionCreate = async (interaction) => {
   const commandName = interaction.data?.name;
 
   console.log(
@@ -37,9 +37,12 @@ bot.events.interactionCreate = async (_bot, interaction) => {
   const response = await command.handleInteraction(interaction);
 
   await sendInteractionResponse(
-    bot,
     interaction.id,
     interaction.token,
     response,
   );
 };
+
+console.log("Starting bot");
+await bot.start();
+console.log("Bot started");

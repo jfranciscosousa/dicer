@@ -1,16 +1,15 @@
 import bot from "@/bot.ts";
 import { COMMANDS } from "@/commands.ts";
-import {
-  getGlobalApplicationCommands,
-  startBot,
-  upsertGlobalApplicationCommands,
-} from "discord";
+import { createBotHelpers } from "discord";
 
-await startBot(bot);
+const {
+  getGlobalApplicationCommands,
+  upsertGlobalApplicationCommands,
+} = createBotHelpers(bot);
 
 bot.events.ready = async (_bot) => {
   // Get existing commands
-  const existingCommands = (await getGlobalApplicationCommands(bot)).array();
+  const existingCommands = await getGlobalApplicationCommands();
 
   // Add the existing ids to existing commands so we update them instead of creating
   const commandsWithId = Object.values(COMMANDS).map((command) => {
@@ -23,12 +22,17 @@ bot.events.ready = async (_bot) => {
     return { ...command, id: existingCommandId };
   });
 
-  await upsertGlobalApplicationCommands(bot, commandsWithId);
+  await upsertGlobalApplicationCommands(commandsWithId);
 
   console.log(
     `New commands: ${commandsWithId.length - existingCommands.length}`,
   );
   console.log(`Updated commands: ${existingCommands.length}`);
 
+  await bot.shutdown();
   Deno.exit();
 };
+
+console.log("Starting bot");
+await bot.start();
+console.log("Bot started");

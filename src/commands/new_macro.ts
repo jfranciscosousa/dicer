@@ -5,7 +5,6 @@ import { DiceRoller } from "dice-roller";
 import {
   ApplicationCommandOptionTypes,
   ApplicationCommandTypes,
-  Interaction,
   InteractionResponseTypes,
 } from "discord";
 import { z } from "zod";
@@ -29,7 +28,7 @@ const NEW_MACRO_COMMAND = buildCommand({
       required: true,
     },
   ],
-  buildArguments: (interaction: Interaction) => {
+  buildArguments: (interaction) => {
     const schema = z.object({
       macroName: z.string(),
       expression: z.string(),
@@ -42,7 +41,7 @@ const NEW_MACRO_COMMAND = buildCommand({
       userId: getUser(interaction).id,
     });
   },
-  handler: async ({ macroName, expression, userId }) => {
+  run: async ({ macroName, expression, userId }) => {
     try {
       const roller = new DiceRoller();
 

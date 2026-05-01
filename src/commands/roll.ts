@@ -1,7 +1,6 @@
 import {
   ApplicationCommandOptionTypes,
   ApplicationCommandTypes,
-  Interaction,
   InteractionResponseTypes,
 } from "discord";
 import { z } from "zod";
@@ -21,7 +20,7 @@ const ROLL_COMMAND = buildCommand({
     },
   ],
   type: ApplicationCommandTypes.ChatInput,
-  buildArguments: (interaction: Interaction) => {
+  buildArguments: (interaction) => {
     const schema = z.object({
       expression: z.string(),
       userId: z.string().or(z.bigint()).transform(BigInt),
@@ -32,7 +31,7 @@ const ROLL_COMMAND = buildCommand({
       userId: getUser(interaction).id,
     });
   },
-  handler: ({ expression, userId }) => {
+  run: ({ expression, userId }) => {
     try {
       const roller = new DiceRoller();
 

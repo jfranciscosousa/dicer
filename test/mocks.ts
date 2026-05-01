@@ -15,6 +15,7 @@ export function buildMockInteraction(data: Interaction["data"]): Interaction {
         avatar: "1",
         discriminator: "#123456",
         username: "TestUser",
+        global_name: null,
       }),
     } as User,
     version: 1,

@@ -3,7 +3,8 @@
     "@/": "./src/",
     "camelcase-keys": "npm:camelcase-keys@^10.0.2",
     "dice-roller": "npm:@dice-roller/rpg-dice-roller@5.5.1",
-    "discord": "npm:discordeno@^18.0.1",
+    "discord": "npm:discordeno@^21.0.0",
+    "dd-cache-proxy": "npm:dd-cache-proxy@latest",
     "hono": "npm:hono@^4.12.15",
     "zod": "npm:zod@^4.3.6",
     "zod-error": "npm:zod-error@^2.0.0"

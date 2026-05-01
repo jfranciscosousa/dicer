@@ -1,28 +1,40 @@
 import {
   ApplicationCommandTypes,
   CreateApplicationCommand,
-  Interaction,
   InteractionResponse,
   InteractionResponseTypes,
+  InteractionTypes,
 } from "discord";
 
+// Structural subset of Interaction containing only what our commands need.
+// Avoids coupling to the bot's desired properties configuration — TypeScript's
+// structural typing ensures both the full Interaction and the desired-props
+// narrowed version satisfy this type without any casting.
+type SimpleInteraction = {
+  id: bigint;
+  token: string;
+  type: InteractionTypes;
+  data?: { name?: string; options?: Array<{ name: string; value?: unknown }> };
+  user?: { id: bigint; username: string };
+  member?: { user?: { id: bigint; username: string } };
+};
+
 export type Command<T> = {
-  // The handler called by our `dev.ts` and `prod.ts` modules
   handleInteraction: (
-    interaction: Interaction,
+    interaction: SimpleInteraction,
   ) => Promise<InteractionResponse> | InteractionResponse;
 } & (CommandWithArguments<T> | CommandWithoutArguments);
 
 type CommandWithArguments<T> = {
-  buildArguments: (interaction: Interaction) => T;
+  buildArguments: (interaction: SimpleInteraction) => T;
 
-  handler: (args: T) => Promise<InteractionResponse> | InteractionResponse;
+  run: (args: T) => Promise<InteractionResponse> | InteractionResponse;
 } & BaseCommand;
 
 type CommandWithoutArguments = {
   buildArguments?: undefined;
 
-  handler: () => Promise<InteractionResponse> | InteractionResponse;
+  run: () => Promise<InteractionResponse> | InteractionResponse;
 } & BaseCommand;
 
 type BaseCommand = {
@@ -44,7 +56,7 @@ export function buildCommand<T>(commandProps: BuildCommandArgs<T>): Command<T> {
       ...commandProps,
       handleInteraction: () => {
         try {
-          return commandProps.handler();
+          return commandProps.run();
         } catch (error) {
           console.error(error);
 
@@ -61,7 +73,7 @@ export function buildCommand<T>(commandProps: BuildCommandArgs<T>): Command<T> {
     ...commandProps,
     handleInteraction: (i) => {
       try {
-        return commandProps.handler(commandProps.buildArguments(i));
+        return commandProps.run(commandProps.buildArguments(i));
       } catch (error) {
         console.error(error);
 
@@ -74,14 +86,19 @@ export function buildCommand<T>(commandProps: BuildCommandArgs<T>): Command<T> {
   };
 }
 
-export function getOptionValue(interaction: Interaction, optionName: string) {
+export function getOptionValue(
+  interaction: SimpleInteraction,
+  optionName: string,
+) {
   return interaction.data?.options?.find((option) => option.name === optionName)
     ?.value;
 }
 
-export function getUser(interaction: Interaction): {
+export function getUser(interaction: SimpleInteraction): {
   id: bigint;
   username: string;
 } {
-  return interaction.user || interaction.member?.user;
+  const user = interaction.user ?? interaction.member?.user;
+  if (!user) throw new Error("Interaction has no user or member");
+  return user;
 }

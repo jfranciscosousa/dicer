@@ -1,10 +1,6 @@
 import { buildCommand, getUser } from "@/commands/utils.ts";
 import { DiceRoller } from "dice-roller";
-import {
-  ApplicationCommandTypes,
-  Interaction,
-  InteractionResponseTypes,
-} from "discord";
+import { ApplicationCommandTypes, InteractionResponseTypes } from "discord";
 
 function rollStats(): DiceRoller | void {
   const roller = new DiceRoller();
@@ -32,10 +28,10 @@ const ROLL_STATS_COMMAND = buildCommand({
   description:
     "Rolls stat for your character. 4d6, drops the lowest and enforces at least 1 stat with 15.",
   type: ApplicationCommandTypes.ChatInput,
-  buildArguments: (interaction: Interaction) => ({
+  buildArguments: (interaction) => ({
     userId: getUser(interaction).id,
   }),
-  handler: ({ userId }) => {
+  run: ({ userId }) => {
     const roller = rollStats();
 
     if (!roller) {
