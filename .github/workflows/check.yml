@@ -22,3 +22,6 @@ jobs:
 
       - name: Check
         run: deno task check-all
+
+      - name: Test
+        run: deno task test

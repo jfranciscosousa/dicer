@@ -1,4 +1,3 @@
-/// <reference lib="deno.unstable" />
 import { buildCommand, getOptionValue, getUser } from "@/commands/utils.ts";
 import { openKv } from "@/kv.ts";
 import { DiceRoller } from "dice-roller";

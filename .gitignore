@@ -4,3 +4,4 @@
 
 # exclusions
 !.env.sample
+!.env.test

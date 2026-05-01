@@ -1,4 +1,3 @@
-/// <reference lib="deno.unstable" />
 import { buildCommand, getUser } from "@/commands/utils.ts";
 import { openKv } from "@/kv.ts";
 import { ApplicationCommandTypes, InteractionResponseTypes } from "discord";
