@@ -1,3 +1,3 @@
 # Dicer
 
-[https://dicer.deno.dev](https://dicer.deno.dev)
+[https://dicer.jfranciscosousa.deno.net/](https://dicer.jfranciscosousa.deno.net/)
