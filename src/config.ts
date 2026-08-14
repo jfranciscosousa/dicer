@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { generateErrorMessage } from "zod-error";
 
 const env = Deno.env.toObject();
 
@@ -22,10 +21,7 @@ if (!parsedConfig.success) {
   );
   console.error(
     "\x1b[31m%s\x1b[0m",
-    // deno-lint-ignore no-explicit-any
-    generateErrorMessage(parsedConfig.error.issues as any, {
-      delimiter: { error: "\n" },
-    }),
+    z.prettifyError(parsedConfig.error),
   );
 
   throw new Error("bad env variables");
