@@ -22,7 +22,9 @@ async function commandLogger(c: Context, next: () => Promise<void>) {
     const args = options?.map(({ name, value }) => `${name}=${value}`).join(
       " ",
     );
-    if (commandName) console.log(`Command: ${commandName}${args ? ` ${args}` : ""}`);
+    if (commandName) {
+      console.log(`Command: ${commandName}${args ? ` ${args}` : ""}`);
+    }
   } catch {
     console.log("Malformed request, invalid JSON");
   }

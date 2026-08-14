@@ -1,29 +1,47 @@
 name: Run task
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
     inputs:
       task:
         description: "Task"
         required: true
+        type: choice
+        options:
+          - delete_commands_task
+          - upsert_global_commands_task
+          - upsert_guild_commands_task
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
-      - uses: marocchino/tool-versions-action@v1
+      - uses: marocchino/tool-versions-action@4219f2e6bfdb4cce482b78f71ad9663e64f4d247 # v2.0.0
         id: versions
 
-      - uses: denoland/setup-deno@v1
+      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
         with:
           deno-version: ${{ steps.versions.outputs.deno }}
 
-      - name: Run ${{ github.event.inputs.task }}
-        run: "deno task run tasks/${{ github.event.inputs.task }}.ts"
+      - name: Run selected task
         env:
+          TASK_NAME: ${{ inputs.task }}
           DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
           DISCORD_PUBLIC_KEY: ${{ secrets.DISCORD_PUBLIC_KEY }}
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: |
+          case "$TASK_NAME" in
+            delete_commands_task|upsert_global_commands_task|upsert_guild_commands_task)
+              deno task run "tasks/${TASK_NAME}.ts"
+              ;;
+            *)
+              echo "Invalid task: $TASK_NAME" >&2
+              exit 1
+              ;;
+          esac
