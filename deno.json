@@ -17,7 +17,7 @@
     "regen-lock": "deno cache --reload --frozen=false --allow-import=deno.land,unpkg.com src/dev.ts src/prod.tsx",
     "cache-all": "deno cache --allow-import=deno.land,unpkg.com src/dev.ts src/prod.tsx",
     "test": "deno test --unstable-kv --allow-env --allow-read --allow-write --env-file=.env.test test/*.ts test/**/*.ts",
-    "check-all": "deno fmt --check && deno lint && deno check --allow-import=deno.land,unpkg.com,jsr.io src/*.ts src/**/*.ts tasks/*.ts test/*.ts test/**/*.ts"
+    "check-all": "deno fmt --check src tasks test && deno lint && deno check --allow-import=deno.land,unpkg.com,jsr.io src/*.ts src/**/*.ts tasks/*.ts test/*.ts test/**/*.ts"
   },
   "compilerOptions": {
     "jsx": "precompile",
