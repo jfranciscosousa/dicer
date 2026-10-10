@@ -8,14 +8,17 @@ statistics, and saved macros.
 
 Production uses the Workers runtime with Node compatibility, not Deno or a Node
 server. Node 26.11.1+ runs local tools. Install dependencies with `pnpm install --frozen-lockfile`.
-`.tool-versions` pins Node and pnpm for local tools. `package.json` pins pnpm for
-GitHub Actions. Install these versions with `mise install` before installing
-dependencies. pnpm shares dependency files across local projects; it does not
+`mise.toml` pins Node and pnpm for local tools. GitHub Actions sets the Node
+version explicitly; `package.json` pins pnpm for GitHub Actions.
+Keep these pins aligned. Install the local tools with `mise install` before
+installing dependencies. pnpm shares dependency files across local projects; it does not
 reduce the deployed Worker bundle.
 
 For [Cloudflare Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/build-image/),
 set `NODE_VERSION=26.11.1` and `PNPM_VERSION=12.10.1` in Build Variables and Secrets.
-Keep these values aligned with the repository pins.
+Keep these values aligned with the repository pins. Do not add `.tool-versions`:
+Cloudflare attempts to install its tools before the build, and its build image
+can lack the pnpm plugin.
 
 Macros use Cloudflare D1 through the `DB` binding. The `macros` table stores user
 IDs as text to preserve Discord snowflake precision. Its primary key combines
@@ -34,6 +37,7 @@ release-age exceptions preserve the existing npm-locked Workers and Node types.
 ## Local development
 
 ```bash
+mise install
 pnpm install --frozen-lockfile
 cp .env.sample .env
 # Fill in the Discord values.

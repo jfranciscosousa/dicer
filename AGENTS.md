@@ -4,7 +4,7 @@ Discord dice bot on Cloudflare Workers with slash commands, saved macros, and ro
 
 ## Conventions
 
-- Use Workers APIs for production and Node 26.11.1+ for local tools. Pin Node and pnpm in `.tool-versions` and keep the pnpm `packageManager` pin in `package.json` aligned. Install dependencies with `pnpm install --frozen-lockfile` and use the scripts in `package.json`.
+- Use Workers APIs for production and Node 26.11.1+ for local tools. Pin Node and pnpm in `mise.toml`. Keep GitHub Actions' Node version and Cloudflare's `NODE_VERSION` build variable aligned with the Node pin. Do not add `.node-version` or `.nvmrc`. Keep the pnpm `packageManager` pin in `package.json` aligned. Do not add `.tool-versions`; Cloudflare attempts to install its tools before the build. Install dependencies with `pnpm install --frozen-lockfile` and use the scripts in `package.json`.
 - Approve required dependency build scripts explicitly in `pnpm-workspace.yaml`. Do not enable all dependency scripts.
 - Use import aliases from `tsconfig.json`, such as `@/commands/utils.ts`. Keep the Vite alias in `vite.config.ts` in sync.
 - Vite builds `src/prod.tsx` into `dist/dicer/`. Use `pnpm run deploy` to build before Wrangler deploys the generated configuration; do not restore a custom Wrangler build command.
