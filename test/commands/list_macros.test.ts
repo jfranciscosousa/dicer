@@ -14,7 +14,6 @@ const interaction = {
   data: { name: "list_macros", options: [] },
 };
 
-// deno-lint-ignore no-explicit-any
 function getContent(result: any): string {
   return result.data.content;
 }

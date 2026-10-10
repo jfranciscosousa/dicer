@@ -7,7 +7,10 @@ statistics, and saved macros.
 ## Runtime and storage
 
 Production uses the Workers runtime with Node compatibility, not Deno or a Node
-server. Node 22+ runs local tools. Install dependencies with `npm ci`.
+server. Node 26.11.1+ runs local tools. Install dependencies with `npm ci`.
+`.tool-versions` pins Node for local tools and GitHub Actions. `.node-version`
+pins Node for Cloudflare Workers Builds. Keep both version files in sync.
+A Cloudflare build variable named `NODE_VERSION`, if set, must match the pin.
 
 Macros use Cloudflare D1 through the `DB` binding. The `macros` table stores user
 IDs as text to preserve Discord snowflake precision. Its primary key combines

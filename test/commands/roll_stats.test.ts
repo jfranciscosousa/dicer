@@ -13,7 +13,6 @@ const interaction = {
   data: { name: "roll_stats", options: [] },
 };
 
-// deno-lint-ignore no-explicit-any
 function getContent(result: any): string {
   return result.data.content;
 }

@@ -22,7 +22,6 @@ function buildInteraction(macroName: string, expression: string) {
   };
 }
 
-// deno-lint-ignore no-explicit-any
 function getContent(result: any): string {
   return result.data.content;
 }
