@@ -4,7 +4,7 @@ Discord dice bot on Cloudflare Workers with slash commands, saved macros, and ro
 
 ## Conventions
 
-- Use Workers APIs for production and Node 26.11.1+ for local tools. Keep `.tool-versions` and `.node-version` in sync. Install dependencies with `npm ci` and use the scripts in `package.json`.
+- Use Workers APIs for production and Node 26.11.1+ for local tools. Pin Node in `.tool-versions`. Install dependencies with `npm ci` and use the scripts in `package.json`.
 - Use import aliases from `tsconfig.json`, such as `@/commands/utils.ts`. Keep the Vite alias in `vite.config.ts` in sync.
 - Vite builds `src/prod.tsx` into `dist/dicer/`. Use `npm run deploy` to build before Wrangler deploys the generated configuration; do not restore a custom Wrangler build command.
 - Define commands with `buildCommand`, validate interaction arguments with Zod, and register new commands in `src/commands.ts`.
