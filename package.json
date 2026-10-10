@@ -4,13 +4,13 @@
   "type": "module",
   "engines": { "node": ">=22" },
   "scripts": {
-    "dev": "npm run build && wrangler pages dev",
+    "dev": "wrangler dev",
     "dev:gateway": "tsx --env-file=.env src/dev.ts",
     "run": "tsx",
     "check": "tsc --noEmit",
     "test": "vitest run",
     "build": "node tasks/build.mjs",
-    "deploy": "npm run build && wrangler pages deploy"
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "camelcase-keys": "^10.0.3",

@@ -1,6 +1,6 @@
 # Dicer
 
-Discord dice bot on Cloudflare Pages Functions. Hono serves the home page and
+Discord dice bot on Cloudflare Workers. Hono serves the home page and
 signed `POST /bot` interactions. The existing command handlers handle rolls,
 statistics, and saved macros.
 
@@ -28,17 +28,17 @@ npx wrangler d1 migrations apply dicer --local
 npm run dev
 ```
 
-Wrangler serves `http://localhost:8788`. `GET /` renders the existing home page;
+Wrangler serves `http://localhost:8787`. `GET /` renders the existing home page;
 `POST /bot` requires a valid Discord signature. Local D1 data stays in `.wrangler`
 and survives restarts. No Cloudflare login or remote database is required.
 
-The Pages build uses
-[advanced mode](https://developers.cloudflare.com/pages/functions/advanced-mode/):
-`dist/_worker.js` delegates all routes to Hono. No static assets are required.
-Rebuild and restart `npm run dev` after source changes.
+The [custom build](https://developers.cloudflare.com/workers/wrangler/custom-builds/)
+creates `dist/worker.js`, which delegates all routes to Hono. No static assets are
+required. Wrangler builds before development and deployment, and rebuilds when
+source files change.
 
 The optional `npm run dev:gateway` client uses `.env` and Node. Dice-only commands
-still work there, but macro commands require the Pages runtime's D1 binding and
+still work there, but macro commands require the Workers runtime's D1 binding and
 cannot run in the Node gateway client. Use `npm run dev` to test all commands.
 Do not change a live application's interaction endpoint for local testing.
 
@@ -53,7 +53,7 @@ npm run build
 Tests run in the Workers runtime against local D1. They apply the SQL schema and
 verify signatures, webhook dispatch, macro persistence, overwrites, large user
 IDs, user isolation, ordering, and long expressions. Tests never access a live
-database. `npm run build` creates the Pages bundle only; it does not deploy.
+database. `npm run build` creates the Workers bundle only; it does not deploy.
 
 ## Deployment (requires approval)
 
@@ -65,12 +65,14 @@ After approval:
 
 1. Apply the schema with `npx wrangler d1 migrations apply dicer --remote`,
    or execute `migrations/0001_macros.sql` in the D1 dashboard console.
-2. Create or select the Cloudflare Pages project named `dicer`. For Git
-   integration, set the build command to `npm run build` and output directory
-   to `dist`.
+2. Create or select the Cloudflare Worker named `dicer`. For Workers Builds Git
+   integration, select `master` as the production branch, set the build command
+   to `npm run build`, and set the deploy command to `npm run deploy`.
+   No Pages output directory is required.
 3. Set `DISCORD_APPLICATION_ID`, `DISCORD_PUBLIC_KEY`, and `DISCORD_BOT_TOKEN` as
-   Pages secrets for the intended environment. Keep secrets out of Git.
-4. Deploy through Git integration or `npm run deploy`.
+   Worker secrets for the intended environment. Keep secrets out of Git. Existing
+   Pages secrets do not transfer; use the dashboard or `npx wrangler secret put`.
+4. Deploy through Workers Builds or `npm run deploy`.
 
 The compatibility date, Node compatibility flag, and D1 binding come from
 `wrangler.jsonc`. Configure a separate database for previews with
@@ -79,7 +81,7 @@ The compatibility date, Node compatibility flag, and D1 binding come from
 On the approved environment, verify the home page, a signed Discord ping, and
 macro creation, listing, overwriting, and rolling. Discord requires a response
 within three seconds. Then, with separate approval, change the Discord
-interactions endpoint to `https://<pages-domain>/bot`. No command registration is
+interactions endpoint to `https://<worker-domain>/bot`. No command registration is
 needed for this runtime migration.
 
 Keep the old service and endpoint available for rollback. D1 macros created after
