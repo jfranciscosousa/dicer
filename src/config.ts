@@ -14,5 +14,18 @@ let config: z.infer<typeof configSchema> | undefined;
 
 export default function getConfig() {
   // Workers bindings are available during requests, not deployment validation.
-  return config ??= configSchema.parse(process.env);
+  if (config) return config;
+
+  const result = configSchema.safeParse(process.env);
+  if (!result.success) {
+    const details = result.error.issues.map((issue) =>
+      `${issue.path.join(".")}: ${issue.message}`
+    ).join("; ");
+    const message =
+      `Invalid Worker runtime configuration: ${details}. Check Settings > Variables and Secrets, not build variables.`;
+    console.error(message);
+    throw new Error(message);
+  }
+
+  return config = result.data;
 }
