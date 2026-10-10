@@ -27,7 +27,7 @@ remove it from local and Cloudflare secrets and revoke the temporary token.
 npm ci
 cp .env.sample .env
 # Fill in the Discord values.
-npx wrangler d1 migrations apply dicer --local
+npm run db:migrate
 npm run dev
 ```
 
@@ -50,8 +50,11 @@ Wrangler deploys the generated output.
 ### Discord socket development
 
 Use `npm run dev:socket` to receive Discord interactions over WebSocket without a
-public webhook or tunnel. It loads `.env`, applies local D1 migrations, and starts
-the Node socket client. All commands, including saved macros, work through
+public webhook or tunnel. Copy `.env.sample` to `.env` and fill in the development
+bot credentials first. Run `npm run db:migrate` before the first start and after
+new migrations are added. This separate command applies local D1 migrations and
+may ask for confirmation. `dev:socket` only loads `.env` and starts the Node socket
+client; it does not apply migrations. All commands, including saved macros, work through
 Wrangler's local D1 platform proxy. Data persists in `.wrangler/state/v3` and uses
 the same local database as Vite. This command never connects to production D1.
 

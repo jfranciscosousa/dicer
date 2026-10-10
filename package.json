@@ -7,7 +7,8 @@
   },
   "scripts": {
     "dev": "vite dev",
-    "dev:socket": "wrangler d1 migrations apply dicer --local && tsx --env-file=.env src/dev.ts",
+    "dev:socket": "tsx --env-file=.env src/dev.ts",
+    "db:migrate": "wrangler d1 migrations apply dicer --local",
     "run": "tsx",
     "check": "tsc --noEmit",
     "test": "vitest run && tsx --test test/socket.test.ts",
