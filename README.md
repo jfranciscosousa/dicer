@@ -25,11 +25,17 @@ remove it from local and Cloudflare secrets and revoke the temporary token.
 
 ```bash
 npm ci
-cp .dev.vars.sample .dev.vars
+cp .env.sample .env
 # Fill in the Discord values.
 npx wrangler d1 migrations apply dicer --local
 npm run dev
 ```
+
+Use one local `.env` file for Wrangler, the optional Node gateway, and Discord
+maintenance tasks. Wrangler loads `.env` automatically when `.dev.vars` is absent.
+If you have an existing `.dev.vars`, move its values into `.env`, then remove it;
+otherwise Wrangler uses `.dev.vars` instead. Keep `.env` out of Git. Production
+uses Cloudflare Worker secrets; GitHub Actions uses repository secrets, not `.env`.
 
 Wrangler serves `http://localhost:8787`. `GET /` renders the existing home page;
 `POST /bot` requires a valid Discord signature. Local D1 data stays in `.wrangler`
@@ -60,6 +66,11 @@ database. `npm run build` creates the Workers bundle only; it does not deploy.
 
 ## Deployment (requires approval)
 
+Cloudflare Workers Builds automatically deploys every push to `master` to
+production. Preview branch deployments are disabled; other branches do not deploy.
+A push or merge to `master` therefore requires deployment approval. GitHub Actions
+also registers global Discord commands on pushes to `master`.
+
 `wrangler.jsonc` configures the production D1 database
 `b8819b86-af53-49f3-8678-6a472deb1d18` with binding name `DB`.
 The remote schema must be applied before macro commands can work.
@@ -71,15 +82,14 @@ After approval:
 2. Create or select the Cloudflare Worker named `dicer`. For Workers Builds Git
    integration, select `master` as the production branch, set the build command
    to `npm run build`, and set the deploy command to `npm run deploy`.
-   No Pages output directory is required.
+   Keep preview branch deployments disabled. No Pages output directory is required.
 3. Set `DISCORD_APPLICATION_ID`, `DISCORD_PUBLIC_KEY`, and `DISCORD_BOT_TOKEN` as
    Worker secrets for the intended environment. Keep secrets out of Git. Existing
    Pages secrets do not transfer; use the dashboard or `npx wrangler secret put`.
 4. Deploy through Workers Builds or `npm run deploy`.
 
-The compatibility date, Node compatibility flag, and D1 binding come from
-`wrangler.jsonc`. Configure a separate database for previews with
-`env.preview.d1_databases`; do not let preview deployments write production data.
+The compatibility date, Node compatibility flag, and production D1 binding come
+from `wrangler.jsonc`. No preview branches or preview databases are configured.
 
 On the approved environment, verify the home page, a signed Discord ping, and
 macro creation, listing, overwriting, and rolling. Discord requires a response
