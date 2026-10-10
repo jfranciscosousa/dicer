@@ -51,7 +51,7 @@ bot.events.ready = async (_bot, { guilds }) => {
   );
   console.log(`Updated commands: ${existingCommands.length}`);
 
-  Deno.exit();
+  process.exit();
 };
 
 console.log("Starting bot");

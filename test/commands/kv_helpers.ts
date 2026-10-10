@@ -1,9 +1,8 @@
+import { openKv } from "@/kv.ts";
+import { env } from "cloudflare:workers";
+
 export async function clearKv() {
-  const kv = await Deno.openKv();
-  for await (const entry of kv.list({ prefix: [] })) {
-    await kv.delete(entry.key);
-  }
-  kv.close();
+  await (env as { DB: D1Database }).DB.prepare("DELETE FROM macros").run();
 }
 
 export async function setMacro(
@@ -11,7 +10,7 @@ export async function setMacro(
   name: string,
   expression: string,
 ) {
-  const kv = await Deno.openKv();
+  const kv = await openKv();
   await kv.set(["macro", userId, name], expression);
   kv.close();
 }
@@ -20,7 +19,7 @@ export async function getMacro(
   userId: bigint,
   name: string,
 ): Promise<string | null> {
-  const kv = await Deno.openKv();
+  const kv = await openKv();
   const result = await kv.get<string>(["macro", userId, name]);
   kv.close();
   return result.value;

@@ -1,4 +1,5 @@
-import { assertEquals, assertStringIncludes } from "@std/assert";
+import { test } from "vitest";
+import { assertEquals, assertStringIncludes } from "../assert.ts";
 import ROLL_MACRO_COMMAND from "@/commands/roll_macro.ts";
 import { InteractionResponseTypes, InteractionTypes } from "discord";
 import { clearKv, setMacro } from "./kv_helpers.ts";
@@ -28,7 +29,7 @@ function getContent(result: any): string {
   return result.data.content;
 }
 
-Deno.test("roll_macro - missing macro returns not found message", async () => {
+test("roll_macro - missing macro returns not found message", async () => {
   await clearKv();
 
   const result = await ROLL_MACRO_COMMAND.handleInteraction(
@@ -40,7 +41,7 @@ Deno.test("roll_macro - missing macro returns not found message", async () => {
   assertStringIncludes(getContent(result), `<@${USER_ID}>`);
 });
 
-Deno.test("roll_macro - existing macro is rolled", async () => {
+test("roll_macro - existing macro is rolled", async () => {
   await clearKv();
   await setMacro(USER_ID, "attack", "1d20+5");
 
@@ -54,7 +55,7 @@ Deno.test("roll_macro - existing macro is rolled", async () => {
   assertStringIncludes(getContent(result), "rolled");
 });
 
-Deno.test("roll_macro - macro with extra expression is rolled", async () => {
+test("roll_macro - macro with extra expression is rolled", async () => {
   await clearKv();
   await setMacro(USER_ID, "base", "1d20");
 

@@ -90,4 +90,4 @@ async function bot(c: Context) {
 app.get("/", (c) => c.html(<HomePage />));
 app.post("/bot", (c) => bot(c));
 
-Deno.serve(app.fetch);
+export default app;

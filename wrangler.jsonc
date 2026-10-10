@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "dicer",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-07-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": { "DEVELOPMENT": "false" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "dicer",
+      "database_id": "b8819b86-af53-49f3-8678-6a472deb1d18",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

@@ -30,7 +30,7 @@ bot.events.ready = async (_bot) => {
   console.log(`Updated commands: ${existingCommands.length}`);
 
   await bot.shutdown();
-  Deno.exit();
+  process.exit();
 };
 
 console.log("Starting bot");

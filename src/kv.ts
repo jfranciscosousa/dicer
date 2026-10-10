@@ -1,9 +1,34 @@
-import config from "@/config.ts";
+type MacroKey = readonly [string, bigint, string];
 
-export function openKv() {
-  if (config.DEVELOPMENT) return Deno.openKv();
+export async function openKv() {
+  const { env } = await import("cloudflare:workers");
+  const db = (env as { DB?: D1Database }).DB;
+  if (!db) throw new Error("The D1 binding DB is required for macros");
 
-  return Deno.openKv(
-    "https://api.deno.com/databases/40e9b4fb-9248-4885-87cf-6dca0e7af306/connect",
-  );
+  return {
+    async set(key: MacroKey, expression: string) {
+      await db.prepare(
+        "INSERT INTO macros (user_id, macro_name, expression) VALUES (?, ?, ?) " +
+          "ON CONFLICT (user_id, macro_name) DO UPDATE SET expression = excluded.expression",
+      ).bind(String(key[1]), key[2], expression).run();
+    },
+    async get<T = string>(key: MacroKey): Promise<{ value: T | null }> {
+      const row = await db.prepare(
+        "SELECT expression FROM macros WHERE user_id = ? AND macro_name = ?",
+      ).bind(String(key[1]), key[2]).first<{ expression: T }>();
+      return { value: row?.expression ?? null };
+    },
+    async *list<T = string>({ prefix }: { prefix: readonly [string, bigint] }) {
+      const { results } = await db.prepare(
+        "SELECT macro_name, expression FROM macros WHERE user_id = ? ORDER BY macro_name COLLATE BINARY",
+      ).bind(String(prefix[1])).all<{ macro_name: string; expression: T }>();
+      for (const row of results) {
+        yield {
+          key: ["macro", prefix[1], row.macro_name],
+          value: row.expression,
+        };
+      }
+    },
+    close() {},
+  };
 }

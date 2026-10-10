@@ -1,4 +1,5 @@
-import { assertEquals, assertStringIncludes } from "@std/assert";
+import { test } from "vitest";
+import { assertEquals, assertStringIncludes } from "../assert.ts";
 import ROLL_COMMAND from "@/commands/roll.ts";
 import { InteractionResponseTypes, InteractionTypes } from "discord";
 
@@ -22,7 +23,7 @@ function getContent(result: any): string {
   return result.data.content;
 }
 
-Deno.test("roll - valid expression returns rolled result", async () => {
+test("roll - valid expression returns rolled result", async () => {
   const result = await ROLL_COMMAND.handleInteraction(buildInteraction("1d6"));
 
   assertEquals(result.type, InteractionResponseTypes.ChannelMessageWithSource);
@@ -30,7 +31,7 @@ Deno.test("roll - valid expression returns rolled result", async () => {
   assertStringIncludes(getContent(result), "rolled");
 });
 
-Deno.test("roll - too many dice returns chill message", async () => {
+test("roll - too many dice returns chill message", async () => {
   const result = await ROLL_COMMAND.handleInteraction(
     buildInteraction("10000000d10000000"),
   );

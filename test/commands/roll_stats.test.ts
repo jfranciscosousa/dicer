@@ -1,4 +1,5 @@
-import { assertEquals, assertStringIncludes } from "@std/assert";
+import { test } from "vitest";
+import { assertEquals, assertStringIncludes } from "../assert.ts";
 import ROLL_STATS_COMMAND from "@/commands/roll_stats.ts";
 import { InteractionResponseTypes, InteractionTypes } from "discord";
 
@@ -17,7 +18,7 @@ function getContent(result: any): string {
   return result.data.content;
 }
 
-Deno.test("roll_stats - returns 6 stat values", async () => {
+test("roll_stats - returns 6 stat values", async () => {
   const result = await ROLL_STATS_COMMAND.handleInteraction(interaction);
 
   assertEquals(result.type, InteractionResponseTypes.ChannelMessageWithSource);
@@ -34,7 +35,7 @@ Deno.test("roll_stats - returns 6 stat values", async () => {
   }
 });
 
-Deno.test("roll_stats - at least one stat is >= 15", async () => {
+test("roll_stats - at least one stat is >= 15", async () => {
   const result = await ROLL_STATS_COMMAND.handleInteraction(interaction);
 
   const content = getContent(result);

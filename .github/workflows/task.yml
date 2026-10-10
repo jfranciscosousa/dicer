@@ -22,12 +22,12 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: marocchino/tool-versions-action@4219f2e6bfdb4cce482b78f71ad9663e64f4d247 # v2.0.0
-        id: versions
-
-      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+      - uses: actions/setup-node@v4
         with:
-          deno-version: ${{ steps.versions.outputs.deno }}
+          node-version-file: .tool-versions
+          cache: npm
+
+      - run: npm ci
 
       - name: Run selected task
         env:
@@ -38,7 +38,7 @@ jobs:
         run: |
           case "$TASK_NAME" in
             delete_commands_task|upsert_global_commands_task|upsert_guild_commands_task)
-              deno task run "tasks/${TASK_NAME}.ts"
+              npm run run -- "tasks/${TASK_NAME}.ts"
               ;;
             *)
               echo "Invalid task: $TASK_NAME" >&2

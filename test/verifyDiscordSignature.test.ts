@@ -1,4 +1,5 @@
-import { assertEquals } from "@std/assert";
+import { test } from "vitest";
+import { assertEquals } from "./assert.ts";
 import { verifyDiscordSignature } from "@/verifyDiscordSignature.ts";
 
 function bytesToHex(bytes: Uint8Array): string {
@@ -27,7 +28,7 @@ async function exportPublicKeyHex(publicKey: CryptoKey): Promise<string> {
   return bytesToHex(new Uint8Array(raw));
 }
 
-Deno.test("verifyDiscordSignature - valid signature returns true", async () => {
+test("verifyDiscordSignature - valid signature returns true", async () => {
   const { privateKey, publicKey } = await generateKeyPair();
   const publicKeyHex = await exportPublicKeyHex(publicKey);
   const timestamp = "1234567890";
@@ -44,7 +45,7 @@ Deno.test("verifyDiscordSignature - valid signature returns true", async () => {
   assertEquals(result, true);
 });
 
-Deno.test("verifyDiscordSignature - invalid signature returns false", async () => {
+test("verifyDiscordSignature - invalid signature returns false", async () => {
   const { publicKey } = await generateKeyPair();
   const publicKeyHex = await exportPublicKeyHex(publicKey);
   const timestamp = "1234567890";
@@ -61,7 +62,7 @@ Deno.test("verifyDiscordSignature - invalid signature returns false", async () =
   assertEquals(result, false);
 });
 
-Deno.test("verifyDiscordSignature - tampered body returns false", async () => {
+test("verifyDiscordSignature - tampered body returns false", async () => {
   const { privateKey, publicKey } = await generateKeyPair();
   const publicKeyHex = await exportPublicKeyHex(publicKey);
   const timestamp = "1234567890";
@@ -78,7 +79,7 @@ Deno.test("verifyDiscordSignature - tampered body returns false", async () => {
   assertEquals(result, false);
 });
 
-Deno.test("verifyDiscordSignature - tampered timestamp returns false", async () => {
+test("verifyDiscordSignature - tampered timestamp returns false", async () => {
   const { privateKey, publicKey } = await generateKeyPair();
   const publicKeyHex = await exportPublicKeyHex(publicKey);
   const timestamp = "1234567890";
@@ -95,7 +96,7 @@ Deno.test("verifyDiscordSignature - tampered timestamp returns false", async () 
   assertEquals(result, false);
 });
 
-Deno.test("verifyDiscordSignature - wrong public key returns false", async () => {
+test("verifyDiscordSignature - wrong public key returns false", async () => {
   const { privateKey } = await generateKeyPair();
   const { publicKey: otherPublicKey } = await generateKeyPair();
   const otherPublicKeyHex = await exportPublicKeyHex(otherPublicKey);

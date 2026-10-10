@@ -1,4 +1,5 @@
-import { assertEquals, assertStringIncludes } from "@std/assert";
+import { test } from "vitest";
+import { assertEquals, assertStringIncludes } from "../assert.ts";
 import NEW_MACRO_COMMAND from "@/commands/new_macro.ts";
 import { InteractionResponseTypes, InteractionTypes } from "discord";
 import { clearKv, getMacro } from "./kv_helpers.ts";
@@ -26,7 +27,7 @@ function getContent(result: any): string {
   return result.data.content;
 }
 
-Deno.test("new_macro - creates macro successfully", async () => {
+test("new_macro - creates macro successfully", async () => {
   await clearKv();
 
   const result = await NEW_MACRO_COMMAND.handleInteraction(
@@ -38,7 +39,7 @@ Deno.test("new_macro - creates macro successfully", async () => {
   assertStringIncludes(getContent(result), "attack");
 });
 
-Deno.test("new_macro - macro is persisted to KV", async () => {
+test("new_macro - macro is persisted to KV", async () => {
   await clearKv();
 
   await NEW_MACRO_COMMAND.handleInteraction(
@@ -49,7 +50,16 @@ Deno.test("new_macro - macro is persisted to KV", async () => {
   assertEquals(stored, "8d6");
 });
 
-Deno.test("new_macro - too many dice returns chill message", async () => {
+test("new_macro - overwrites an existing macro", async () => {
+  await clearKv();
+  await NEW_MACRO_COMMAND.handleInteraction(buildInteraction("attack", "1d20"));
+  await NEW_MACRO_COMMAND.handleInteraction(
+    buildInteraction("attack", "1d20+5"),
+  );
+  assertEquals(await getMacro(USER_ID, "attack"), "1d20+5");
+});
+
+test("new_macro - too many dice returns chill message", async () => {
   await clearKv();
 
   const result = await NEW_MACRO_COMMAND.handleInteraction(

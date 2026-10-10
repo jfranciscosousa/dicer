@@ -1,0 +1,32 @@
+{
+  "name": "dicer",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "npm run build && wrangler pages dev",
+    "dev:gateway": "tsx --env-file=.env src/dev.ts",
+    "run": "tsx",
+    "check": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "node tasks/build.mjs",
+    "deploy": "npm run build && wrangler pages deploy"
+  },
+  "dependencies": {
+    "camelcase-keys": "^10.0.3",
+    "dice-roller": "npm:@dice-roller/rpg-dice-roller@5.5.1",
+    "discord": "npm:discordeno@^21.0.0",
+    "hono": "^4.13.12",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.4.0",
+    "esbuild": "^0.28.2",
+    "@cloudflare/workers-types": "^5.20261006.1",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "~4.1.0",
+    "wrangler": "^4.149.0"
+  }
+}

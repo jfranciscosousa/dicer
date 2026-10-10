@@ -36,7 +36,7 @@ bot.events.ready = async (_bot, { guilds }) => {
   console.log(`Deleted guild commands: ${deletedGuildCommands.length}`);
 
   await bot.shutdown();
-  Deno.exit();
+  process.exit();
 };
 
 console.log("Starting bot");

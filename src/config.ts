@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const env = Deno.env.toObject();
+const env = process.env;
 
 const configSchema = z.object({
   DISCORD_APPLICATION_ID: z.string().regex(/^\d+$/).transform(BigInt),

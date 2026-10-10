@@ -1,7 +1,11 @@
 .env.*
 .env
 .vscode
+dist/
+node_modules/
+.wrangler/
+.dev.vars*
+!.dev.vars.sample
 
 # exclusions
 !.env.sample
-!.env.test
