@@ -7,7 +7,7 @@ import {
   InteractionTypes,
 } from "discord";
 import { COMMANDS } from "@/commands.ts";
-import config from "@/config.ts";
+import getConfig from "@/config.ts";
 import HomePage from "@/home_page.tsx";
 import { verifyDiscordSignature } from "@/verifyDiscordSignature.ts";
 
@@ -40,7 +40,7 @@ async function bot(c: Context) {
   const timestamp = c.req.header("X-Signature-Timestamp") || "";
   const body = await c.req.text();
   const isValid = await verifyDiscordSignature(
-    config.DISCORD_PUBLIC_KEY,
+    getConfig().DISCORD_PUBLIC_KEY,
     signature,
     timestamp,
     body,

@@ -1,10 +1,10 @@
 import { createBotHelpers } from "discord";
 import bot from "@/bot.ts";
-import config from "@/config.ts";
+import getConfig from "@/config.ts";
 import { COMMANDS } from "@/commands.ts";
 
 console.log(
-  `https://discord.com/api/oauth2/authorize?client_id=${config.DISCORD_APPLICATION_ID}&scope=bot%20applications.commands`,
+  `https://discord.com/api/oauth2/authorize?client_id=${getConfig().DISCORD_APPLICATION_ID}&scope=bot%20applications.commands`,
 );
 
 const { sendInteractionResponse } = createBotHelpers(bot);

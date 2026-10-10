@@ -1,4 +1,4 @@
-import config from "@/config.ts";
+import getConfig from "@/config.ts";
 
 const styles = `
 @import url("https://fonts.googleapis.com/css?family=Fira+Mono|Roboto");
@@ -73,7 +73,7 @@ export default function HomePage() {
           <p>
             You can add to your discord server by following the invite url{" "}
             <a
-              href={`https://discord.com/oauth2/authorize?client_id=${config.DISCORD_APPLICATION_ID}&scope=bot`}
+              href={`https://discord.com/oauth2/authorize?client_id=${getConfig().DISCORD_APPLICATION_ID}&scope=bot`}
             >
               here
             </a>

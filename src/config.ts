@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-const env = process.env;
-
 const configSchema = z.object({
   DISCORD_APPLICATION_ID: z.string().regex(/^\d+$/).transform(BigInt),
   DISCORD_PUBLIC_KEY: z.string(),
@@ -12,21 +10,9 @@ const configSchema = z.object({
     .transform((v) => v === "true"),
 });
 
-const parsedConfig = configSchema.safeParse(env);
+let config: z.infer<typeof configSchema> | undefined;
 
-if (!parsedConfig.success) {
-  console.error(
-    "\x1b[31m%s\x1b[0m",
-    "Environment variables error, please review them!",
-  );
-  console.error(
-    "\x1b[31m%s\x1b[0m",
-    z.prettifyError(parsedConfig.error),
-  );
-
-  throw new Error("bad env variables");
+export default function getConfig() {
+  // Workers bindings are available during requests, not deployment validation.
+  return config ??= configSchema.parse(process.env);
 }
-
-const config = parsedConfig.data;
-
-export default config;

@@ -1,9 +1,9 @@
 import { createBot } from "discord";
-import config from "@/config.ts";
+import getConfig from "@/config.ts";
 
 const bot = createBot({
-  token: config.DISCORD_BOT_TOKEN,
-  applicationId: config.DISCORD_APPLICATION_ID,
+  token: getConfig().DISCORD_BOT_TOKEN,
+  applicationId: getConfig().DISCORD_APPLICATION_ID,
   desiredProperties: {
     interaction: {
       id: true,

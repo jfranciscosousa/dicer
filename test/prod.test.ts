@@ -1,6 +1,6 @@
 import { beforeAll, expect, test } from "vitest";
 import app from "@/prod.tsx";
-import config from "@/config.ts";
+import getConfig from "@/config.ts";
 
 let privateKey: CryptoKey;
 
@@ -11,7 +11,7 @@ beforeAll(async () => {
   ]) as CryptoKeyPair;
   privateKey = keys.privateKey;
   const raw = await crypto.subtle.exportKey("raw", keys.publicKey);
-  config.DISCORD_PUBLIC_KEY = Array.from(
+  getConfig().DISCORD_PUBLIC_KEY = Array.from(
     new Uint8Array(raw),
     (byte) => byte.toString(16).padStart(2, "0"),
   ).join("");
@@ -44,7 +44,7 @@ test("home page preserves the Discord invite", async () => {
   const response = await app.request("/");
   expect(response.status).toBe(200);
   expect(await response.text()).toContain(
-    `client_id=${config.DISCORD_APPLICATION_ID}`,
+    `client_id=${getConfig().DISCORD_APPLICATION_ID}`,
   );
 });
 
