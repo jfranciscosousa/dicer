@@ -12,6 +12,10 @@ export async function verifyDiscordSignature(
   timestamp: string,
   body: string,
 ): Promise<boolean> {
+  if (!/^[0-9a-f]{128}$/i.test(signature) || !timestamp) {
+    return false;
+  }
+
   const key = await crypto.subtle.importKey(
     "raw",
     hexToBytes(publicKey),

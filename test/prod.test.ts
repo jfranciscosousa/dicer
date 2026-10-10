@@ -58,6 +58,28 @@ test("invalid signature returns 401", async () => {
   expect((await interaction({ type: 1 }, false)).status).toBe(401);
 });
 
+test.each([
+  ["missing headers", {}],
+  ["missing signature", { "X-Signature-Timestamp": "1234567890" }],
+  ["missing timestamp", { "X-Signature-Ed25519": "a".repeat(128) }],
+  ["short signature", {
+    "X-Signature-Timestamp": "1234567890",
+    "X-Signature-Ed25519": "a".repeat(126),
+  }],
+  ["non-hex signature", {
+    "X-Signature-Timestamp": "1234567890",
+    "X-Signature-Ed25519": "g".repeat(128),
+  }],
+])("%s returns 401", async (_name, headers) => {
+  const response = await app.request("/bot", {
+    method: "POST",
+    headers: headers as Record<string, string>,
+    body: '{"type":1}',
+  });
+  expect(response.status).toBe(401);
+  expect(await response.json()).toEqual({ error: "Invalid request" });
+});
+
 for (const name of [undefined, "unknown"]) {
   test(`signed ${name ?? "missing"} command preserves the error reply`, async () => {
     const response = await interaction({ type: 2, data: { name } });
