@@ -31,7 +31,7 @@ npx wrangler d1 migrations apply dicer --local
 npm run dev
 ```
 
-Use one local `.env` file for Wrangler, the optional Node gateway, and Discord
+Use one local `.env` file for Wrangler, the Node socket client, and Discord
 maintenance tasks. Wrangler loads `.env` automatically when `.dev.vars` is absent.
 If you have an existing `.dev.vars`, move its values into `.env`, then remove it;
 otherwise Wrangler uses `.dev.vars` instead. Keep `.env` out of Git. Production
@@ -47,10 +47,20 @@ Wrangler configuration. No client-side bundle or static assets are required.
 `npm run dev` reloads source changes. `npm run deploy` builds with Vite before
 Wrangler deploys the generated output.
 
-The optional `npm run dev:gateway` client uses `.env` and Node. Dice-only commands
-still work there, but macro commands require the Workers runtime's D1 binding and
-cannot run in the Node gateway client. Use `npm run dev` to test all commands.
-Do not change a live application's interaction endpoint for local testing.
+### Discord socket development
+
+Use `npm run dev:socket` to receive Discord interactions over WebSocket without a
+public webhook or tunnel. It loads `.env`, applies local D1 migrations, and starts
+the Node socket client. All commands, including saved macros, work through
+Wrangler's local D1 platform proxy. Data persists in `.wrangler/state/v3` and uses
+the same local database as Vite. This command never connects to production D1.
+
+Use a separate Discord application and bot token for development. Its interactions
+endpoint must be unset so Discord sends interactions through the socket. Do not
+clear or change the production application's endpoint. Invite the development bot
+to a test server and register its commands only with approval.
+
+Use `npm run dev` to test the home page and signed webhook in the Workers runtime.
 
 ## Checks
 
@@ -63,7 +73,10 @@ npm run build
 Tests run in the Workers runtime against local D1. They apply the SQL schema and
 verify signatures, webhook dispatch, macro persistence, overwrites, large user
 IDs, user isolation, ordering, and long expressions. Tests never access a live
-database. `npm run build` creates the Workers bundle only; it does not deploy.
+database. A separate Node test verifies socket macro creation, listing, rolling,
+user isolation, and persistence through the local D1 proxy. It uses temporary
+storage and never connects to Discord. `npm run build` creates the Workers bundle
+only; it does not deploy.
 
 ## Deployment (requires approval)
 

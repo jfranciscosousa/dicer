@@ -1,8 +1,14 @@
 type MacroKey = readonly [string, bigint, string];
 
+let localDatabase: D1Database | undefined;
+
+export function setLocalDatabase(database: D1Database) {
+  localDatabase = database;
+}
+
 export async function openKv() {
-  const { env } = await import("cloudflare:workers");
-  const db = (env as { DB?: D1Database }).DB;
+  const db = localDatabase ??
+    ((await import("cloudflare:workers")).env as { DB?: D1Database }).DB;
   if (!db) throw new Error("The D1 binding DB is required for macros");
 
   return {

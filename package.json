@@ -7,10 +7,10 @@
   },
   "scripts": {
     "dev": "vite dev",
-    "dev:gateway": "tsx --env-file=.env src/dev.ts",
+    "dev:socket": "wrangler d1 migrations apply dicer --local && tsx --env-file=.env src/dev.ts",
     "run": "tsx",
     "check": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run && tsx --test test/socket.test.ts",
     "build": "vite build",
     "deploy": "npm run build && wrangler deploy"
   },
