@@ -1,9 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "dicer",
-  "main": "./dist/worker.js",
-  "no_bundle": true,
-  "build": { "command": "npm run build", "watch_dir": "./src" },
+  "main": "./src/prod.tsx",
   "compatibility_date": "2026-07-01",
   "compatibility_flags": ["nodejs_compat"],
   "vars": { "DEVELOPMENT": "false" },

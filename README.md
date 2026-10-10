@@ -37,14 +37,15 @@ If you have an existing `.dev.vars`, move its values into `.env`, then remove it
 otherwise Wrangler uses `.dev.vars` instead. Keep `.env` out of Git. Production
 uses Cloudflare Worker secrets; GitHub Actions uses repository secrets, not `.env`.
 
-Wrangler serves `http://localhost:8787`. `GET /` renders the existing home page;
+Vite serves `http://localhost:5173` and runs the app in the Workers runtime. `GET /` renders the existing home page;
 `POST /bot` requires a valid Discord signature. Local D1 data stays in `.wrangler`
 and survives restarts. No Cloudflare login or remote database is required.
 
-The [custom build](https://developers.cloudflare.com/workers/wrangler/custom-builds/)
-creates `dist/worker.js`, which delegates all routes to Hono. No static assets are
-required. Wrangler builds before development and deployment, and rebuilds when
-source files change.
+[Vite with Cloudflare's plugin](https://hono.dev/docs/getting-started/cloudflare-workers-vite)
+builds `src/prod.tsx` into `dist/dicer/`, including the Worker bundle and generated
+Wrangler configuration. No client-side bundle or static assets are required.
+`npm run dev` reloads source changes. `npm run deploy` builds with Vite before
+Wrangler deploys the generated output.
 
 The optional `npm run dev:gateway` client uses `.env` and Node. Dice-only commands
 still work there, but macro commands require the Workers runtime's D1 binding and
