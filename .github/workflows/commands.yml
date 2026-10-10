@@ -14,15 +14,17 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - uses: pnpm/action-setup@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: .tool-versions
-          cache: npm
+          cache: pnpm
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       - name: Upsert commands
-        run: npm run run -- tasks/upsert_global_commands_task.ts
+        run: pnpm run run tasks/upsert_global_commands_task.ts
         env:
           DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
           DISCORD_PUBLIC_KEY: ${{ secrets.DISCORD_PUBLIC_KEY }}

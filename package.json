@@ -2,6 +2,7 @@
   "name": "dicer",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@12.10.1",
   "engines": {
     "node": ">=26.11.1"
   },
@@ -13,7 +14,7 @@
     "check": "tsc --noEmit",
     "test": "vitest run && tsx --test test/socket.test.ts",
     "build": "vite build",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "pnpm run build && wrangler deploy"
   },
   "dependencies": {
     "camelcase-keys": "^10.0.3",

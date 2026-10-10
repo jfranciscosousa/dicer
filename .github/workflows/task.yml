@@ -22,12 +22,14 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - uses: pnpm/action-setup@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: .tool-versions
-          cache: npm
+          cache: pnpm
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       - name: Run selected task
         env:
@@ -38,7 +40,7 @@ jobs:
         run: |
           case "$TASK_NAME" in
             delete_commands_task|upsert_global_commands_task|upsert_guild_commands_task)
-              npm run run -- "tasks/${TASK_NAME}.ts"
+              pnpm run run "tasks/${TASK_NAME}.ts"
               ;;
             *)
               echo "Invalid task: $TASK_NAME" >&2
