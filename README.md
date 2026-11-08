@@ -15,7 +15,7 @@ installing dependencies. pnpm shares dependency files across local projects; it 
 reduce the deployed Worker bundle.
 
 For [Cloudflare Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/build-image/),
-set `NODE_VERSION=24` and `PNPM_VERSION=12.10.1` in Build Variables and Secrets.
+set `NODE_VERSION=24` and `PNPM_VERSION=12.18.0` in Build Variables and Secrets.
 Keep these values aligned with the repository pins. Do not add `.tool-versions`:
 Cloudflare attempts to install its tools before the build, and its build image
 can lack the pnpm plugin.
@@ -31,8 +31,7 @@ remove it from local and Cloudflare secrets and revoke the temporary token.
 
 Dependency build scripts are explicitly approved in `pnpm-workspace.yaml`.
 Only `esbuild` and `workerd` may run install scripts. Review new build scripts
-before adding approvals; do not enable all dependency scripts. Two exact-version
-release-age exceptions preserve the existing npm-locked Workers and Node types.
+before adding approvals; do not enable all dependency scripts.
 
 ## Local development
 

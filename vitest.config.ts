@@ -10,7 +10,7 @@ export default defineConfig({
   },
   plugins: [cloudflareTest({
     miniflare: {
-      compatibilityDate: "2026-07-01",
+      compatibilityDate: "2026-11-08",
       compatibilityFlags: ["nodejs_compat"],
       d1Databases: ["DB"],
       bindings: {
