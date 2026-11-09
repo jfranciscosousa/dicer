@@ -15,3 +15,8 @@ Discord dice bot on Cloudflare Workers with slash commands, saved macros, and ro
 - Run `pnpm run db:migrate` to apply local D1 migrations before the first development start and after new migrations are added. `dev:socket` does not apply migrations. Socket development shares `.wrangler/state/v3` with Vite. Keep `remoteBindings: false` in the socket platform proxy. Use a separate development Discord application with no interactions endpoint; never change the production endpoint for local testing.
 - Cloudflare Workers Builds automatically deploys pushes to `master` to production. Preview branch deployments are disabled; other branches do not deploy.
 - Pushes and merges to `master` require approval because they deploy production and trigger global Discord command registration. Manual deployments, remote migrations, and Discord maintenance tasks also require approval.
+
+## Runtime and dependency maintenance
+
+- Cloudflare build settings are outside Git. The README lists `PNPM_VERSION=12.10.1`, which can be out of date. The local Wrangler credentials cannot read Workers Builds settings (HTTP 403), so the live value is unverified. The owner decided that pnpm follows the version Cloudflare uses. Do not change Cloudflare settings without approval.
+- Set `compatibility_date` in `wrangler.jsonc` to a date that the installed Wrangler supports.
