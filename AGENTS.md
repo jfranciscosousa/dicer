@@ -4,19 +4,12 @@ Discord dice bot on Cloudflare Workers with slash commands, saved macros, and ro
 
 ## Conventions
 
-- Use Workers APIs for production and Node 24 LTS for local tools. Use `node = "24"` in `mise.toml` for the latest Node 24 release and pin pnpm. Keep GitHub Actions' Node version and Cloudflare's `NODE_VERSION` build variable aligned with the Node pin. Do not add `.node-version` or `.nvmrc`. Keep the pnpm `packageManager` pin in `package.json` aligned. Do not add `.tool-versions`; Cloudflare attempts to install its tools before the build. Install dependencies with `pnpm install --frozen-lockfile` and use the scripts in `package.json`.
-- Approve required dependency build scripts explicitly in `pnpm-workspace.yaml`. Do not enable all dependency scripts.
 - Use import aliases from `tsconfig.json`, such as `@/commands/utils.ts`. Keep the Vite alias in `vite.config.ts` in sync.
-- Vite builds `src/prod.tsx` into `dist/dicer/`. Use `pnpm run deploy` to build before Wrangler deploys the generated configuration; do not restore a custom Wrangler build command.
 - Define commands with `buildCommand`, validate interaction arguments with Zod, and register new commands in `src/commands.ts`.
 - Keep tests next to the corresponding feature path under `test/` and name them `*.test.ts`.
-- Preserve the existing TypeScript and TSX formatting. Run `pnpm run check`, `pnpm test`, and `pnpm run build` to validate changes.
+- Preserve the existing TypeScript and TSX formatting.
 - Do not commit secrets. Copy `.env.sample` to `.env` for all local tools: Wrangler, the Node socket client, and Discord maintenance tasks. Do not create `.dev.vars`; it takes precedence over `.env` in Wrangler. Migrate existing `.dev.vars` values to `.env`, then remove `.dev.vars`. Production uses Worker secrets; GitHub Actions uses repository secrets. Tests use fake bindings from `vitest.config.ts` and local D1.
 - Run `pnpm run db:migrate` to apply local D1 migrations before the first development start and after new migrations are added. `dev:socket` does not apply migrations. Socket development shares `.wrangler/state/v3` with Vite. Keep `remoteBindings: false` in the socket platform proxy. Use a separate development Discord application with no interactions endpoint; never change the production endpoint for local testing.
-- Cloudflare Workers Builds automatically deploys pushes to `master` to production. Preview branch deployments are disabled; other branches do not deploy.
 - Pushes and merges to `master` require approval because they deploy production and trigger global Discord command registration. Manual deployments, remote migrations, and Discord maintenance tasks also require approval.
 
-## Runtime and dependency maintenance
-
-- Cloudflare build settings are outside Git. The README lists `PNPM_VERSION=12.10.1`, which can be out of date. The local Wrangler credentials cannot read Workers Builds settings (HTTP 403), so the live value is unverified. The owner decided that pnpm follows the version Cloudflare uses. Do not change Cloudflare settings without approval.
-- Set `compatibility_date` in `wrangler.jsonc` to a date that the installed Wrangler supports.
+[Runtime and dependency maintenance](docs/maintenance.md)

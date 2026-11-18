@@ -1,6 +1,3 @@
-overrides:
-  '@dice-roller/rpg-dice-roller@5.5.1>mathjs': 15.2.0
-
 allowBuilds:
   esbuild: true
   workerd: true
