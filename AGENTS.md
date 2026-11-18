@@ -18,5 +18,10 @@ Discord dice bot on Cloudflare Workers with slash commands, saved macros, and ro
 
 ## Runtime and dependency maintenance
 
-- Cloudflare build settings are outside Git. The README lists `PNPM_VERSION=12.10.1`, which can be out of date. The local Wrangler credentials cannot read Workers Builds settings (HTTP 403), so the live value is unverified. The owner decided that pnpm follows the version Cloudflare uses. Do not change Cloudflare settings without approval.
-- Set `compatibility_date` in `wrangler.jsonc` to a date that the installed Wrangler supports.
+- Keep pnpm at `12.18.0` until you can verify the Workers Builds version. The owner decided that pnpm follows Cloudflare. The README documents the expected settings; it does not confirm the live settings. A previous read returned HTTP 403. The live version was still unverified on 2026-11-18, when the latest stable pnpm was `12.21.0`. Do not change Cloudflare settings without approval.
+- Set the compatibility date in `wrangler.jsonc` and `vitest.config.ts` to a date supported by Wrangler and the Vite plugin. The Vite plugin can use an older workerd than Wrangler.
+- Vitest stays at `5.1.0` because `5.1.1` has not passed pnpm's release-age policy. Update after the policy accepts it without an exclusion. Checked 2026-11-18.
+- Cloudflare's tools pin Miniflare `5.20261110.0-beta` and `5.20261117.0-beta`, and unenv `2.0.0-rc.24`. Miniflare pins youch `4.1.0-beta.10` even though `4.1.1` is stable. Recheck when the upstream tools adopt newer or stable releases. Checked 2026-11-18.
+- Rolldown's optional WASI binding pins `@emnapi/core` and `@emnapi/runtime` at `2.0.0-beta.2`. Recheck when Rolldown updates those pins or adopts stable v2. Checked 2026-11-18.
+- The full audit reports high-severity [picomatch ReDoS](https://github.com/advisories/GHSA-fc5q-39xc-vjpf) in `4.0.7`. It is transitive through the Vite and Vitest toolchain and is absent from the production dependency graph. No patched release was available on 2026-11-18. Recheck when a patched version is published; do not suppress the finding.
+- GitHub Dependabot alerts returned HTTP 403 (disabled) on 2026-11-18. Use the full local audit until alerts are enabled.
